@@ -1,0 +1,103 @@
+
+/* Resetowanie domyślnych stylów przeglądarki */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #bacde4;
+    border: 3px solid #2c4e83;
+    border-radius: 10px;
+    width: 85%;
+    height: 85%;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 75%;
+}
+
+label {
+    font-size: 25px;
+    color: #222222;
+    margin-top: 4%;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    width: 65%;
+    height: 8%;
+}
+
+button {
+    margin-top: 7%;
+    background-color: #5073bc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 25px;
+    text-align: center;
+    width: 30%;
+    height: 15%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #214b9a;
+}
+
+img {
+    margin-left: 8%;
+    justify-self: center;
+    height: 65%;
+    width: 50%;
+}
+
+h3{
+    font-size: 20px;
+    color: #393939;
+}
+
+a {
+    margin-top: 1%;
+    font-size: 20px;
+}
