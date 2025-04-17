@@ -1,16 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
   User: wwerc
-  Date: 09.04.2025
-  Time: 20:31
+  Date: 17.04.2025
+  Time: 14:47
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Title</title>
+        <title>Sharrie</title>
     </head>
     <body>
-        <h1>hi</h1>
+        <div class="main-container">
+            <%@include file="../segments/sidebar.jspf"%>
+            <main>
+
+            </main>
+        </div>
     </body>
 </html>

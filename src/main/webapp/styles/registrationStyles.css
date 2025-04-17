@@ -17,7 +17,7 @@ body {
 
 .main-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #bacde4;
@@ -27,79 +27,58 @@ body {
     height: 85%;
 }
 
-.info-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 75%;
-    height: 100%;
+h1{
+    font-size: 70px;
 }
 
-h1 {
-    text-align: center;
-    font-size: 70px;
-    color: #333;
+h2 {
+    font-size: 40px;
+    margin-top: 1%;
 }
 
 form {
+    margin-top: 1%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 60%;
+    height: 70%;
     width: 75%;
 }
 
 label {
     font-size: 25px;
     color: #222222;
-    margin-top: 4%;
+    margin-top: 1%;
 }
 
 input[type="email"],
 input[type="text"],
+input[type="number"],
 input[type="password"] {
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 20px;
-    width: 65%;
-    height: 8%;
+    width: 55%;
+    height: 15%;
 }
 
 button {
-    margin-top: 7%;
+    margin-top: 3%;
     background-color: #5073bc;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 25px;
     text-align: center;
-    width: 30%;
-    height: 15%;
+    width: 20%;
+    height: 20%;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #214b9a;
-}
-
-img {
-    margin-left: 8%;
-    justify-self: center;
-    height: 65%;
-    width: 50%;
-}
-
-h3{
-    font-size: 20px;
-    color: #393939;
-}
-
-a {
-    margin-top: 1%;
-    font-size: 20px;
 }
 
 .info {

@@ -10,19 +10,20 @@
 
         <div class="main-container">
 
-            <img src="${pageContext.request.contextPath}/images/sharrie main image.png" alt="sharrie image">
+            <img src="${pageContext.request.contextPath}/images/sharrie%20main%20image.png" alt="sharrie image">
 
             <div class="info-container">
                 <h1>Sharrie</h1>
 
-                <form>
+                <form action="login" method="post">
                     <label for="email">email</label>
-                    <input id="email" type="email">
+                    <input id="email" type="email" name="email">
 
                     <label for="password">password</label>
-                    <input id="password" type="password">
+                    <input id="password" type="password" name="password">
 
                     <button>Log in</button>
+                    <p class="info">${requestScope.information}</p>
                 </form>
 
                 <h3>You don't have an account?</h3>
