@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Sharrie</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/indexStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/start/indexStyles.css">
     </head>
     <body>
 

@@ -1,46 +1,70 @@
+<div class="sidebar">
 
-
-<nav class="sidebar">
-    <div class="main">
-        <h1>Sharrie</h1>
+    <div class="top-buttons">
+        <h1 class="logo">Sharrie</h1>
 
         <form action="home" method="get">
-            <button type="submit">Home</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/home%20icon.png" alt="home icon">
+                Home
+            </button>
         </form>
 
         <form action="search" method="get">
-            <button type="submit">Search</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/search%20icon.png" alt="home icon">
+                Search
+            </button>
         </form>
 
         <form action="explore" method="get">
-            <button type="submit">Explore</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/explore%20icon.png" alt="home icon">
+                Explore
+            </button>
         </form>
 
         <form action="reels" method="get">
-            <button type="submit">Reels</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/reels%20icon.png" alt="home icon">
+                Reels
+            </button>
         </form>
 
         <form action="messages" method="get">
-            <button type="submit">Messages</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/messages%20icon.png" alt="home icon">
+                Messages
+            </button>
         </form>
 
         <form action="notifications" method="get">
-            <button type="submit">Notifications</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/notifications%20icon.png" alt="home icon">
+                Notifications
+            </button>
         </form>
 
         <form action="create" method="get">
-            <button type="submit">Create</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="home icon">
+                Create
+            </button>
         </form>
 
         <form action="profile" method="get">
-            <button type="submit">Profile</button>
+            <button type="submit">
+                Profile
+            </button>
         </form>
     </div>
 
-    <div class="settings">
+    <div class="bottom-button">
         <form action="settings" method="get">
-            <button type="submit">Settings</button>
+            <button type="submit">
+                <img src="${pageContext.request.contextPath}/images/icons/settings%20icon.png" alt="home icon">
+                Settings
+            </button>
         </form>
     </div>
-
-</nav>
+</div>

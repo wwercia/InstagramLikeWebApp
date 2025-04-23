@@ -11,6 +11,8 @@
 <html>
     <head>
         <title>Sharrie</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/homeStyles.css">
     </head>
     <body>
         <div class="main-container">

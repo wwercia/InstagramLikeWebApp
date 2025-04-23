@@ -9,7 +9,7 @@
 <html>
     <head>
         <title>Register</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/registrationStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/start/registrationStyles.css">
     </head>
     <body>
 
