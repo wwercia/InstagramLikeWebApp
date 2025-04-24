@@ -1,6 +1,6 @@
 package com.werka.instagramlikewebapp.client.start;
 
-import com.werka.instagramlikewebapp.domain.LoginService;
+import com.werka.instagramlikewebapp.domain.services.LoginService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

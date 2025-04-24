@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.domain.daos.user;
 
+import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
@@ -8,8 +9,8 @@ public class UserDao extends BaseDao {
 
     public void saveUser(String email, String password, String username, String firstName, String lastName, int age) {
         final String sql = "INSERT INTO user (email, password, username, firstName, lastName, age) VALUES (?, ?, ?, ?, ?, ?)";
-        try(Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
             statement.setString(2, password);
             statement.setString(3, username);
@@ -17,8 +18,21 @@ public class UserDao extends BaseDao {
             statement.setString(5, lastName);
             statement.setInt(6, age);
             statement.executeUpdate();
+            DataHelper.setUser(new User(getUserIdByEmail(email), email, password, username, firstName, lastName, age));
         } catch (SQLException e) {
             throw new RuntimeException();
+        }
+    }
+
+    private int getUserIdByEmail(String email) {
+        final String sql = "SELECT id FROM user WHERE `email` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -29,13 +43,7 @@ public class UserDao extends BaseDao {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-
-            if(resultSet.next()) {
-                return false;
-            }
-
-            return true;
-
+            return !resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +60,7 @@ public class UserDao extends BaseDao {
             ResultSet resultSet = statement.executeQuery();
 
             User user = null;
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String emaill = resultSet.getString("email");
                 String passwordd = resultSet.getString("password");
@@ -63,7 +71,8 @@ public class UserDao extends BaseDao {
                 user = new User(id, emaill, passwordd, username, firstName, lastName, age);
             }
 
-            if(user != null) {
+            if (user != null) {
+                DataHelper.setUser(user);
                 return true;
             }
             return false;
@@ -71,6 +80,23 @@ public class UserDao extends BaseDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
+    public String getUsernameById(int userId) {
+
+        System.out.println(userId);
+
+        final String sql = "SELECT username FROM user WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getString("username");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

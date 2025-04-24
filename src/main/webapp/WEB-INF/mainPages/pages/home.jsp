@@ -12,7 +12,7 @@
     <head>
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/homeStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
     </head>
     <body>
         <div class="main-container">

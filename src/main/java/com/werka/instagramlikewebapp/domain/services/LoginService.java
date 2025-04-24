@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.domain;
+package com.werka.instagramlikewebapp.domain.services;
 
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
 
