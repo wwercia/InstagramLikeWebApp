@@ -17,4 +17,5 @@ public class PostsController extends HttpServlet {
         //resp.sendRedirect(req.getContextPath() + "/profile");
         req.getRequestDispatcher("/profile").forward(req, resp);
     }
+
 }

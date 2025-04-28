@@ -17,6 +17,12 @@
             <%@include file="../segments/sidebar.jspf"%>
             <main>
 
+                <form action="${pageContext.request.contextPath}/create" method="POST" enctype="multipart/form-data">
+                    <label for="fileUpload">Wybierz zdjęcie:</label>
+                    <input type="file" id="fileUpload" name="file" accept="image/*">
+                    <button type="submit">Prześlij</button>
+                </form>
+
             </main>
         </div>
     </body>

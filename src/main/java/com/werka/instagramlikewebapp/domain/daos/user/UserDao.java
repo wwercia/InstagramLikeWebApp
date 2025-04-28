@@ -10,7 +10,7 @@ public class UserDao extends BaseDao {
     public void saveUser(String email, String password, String username, String firstName, String lastName, int age) {
         final String sql = "INSERT INTO user (email, password, username, firstName, lastName, age) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, email);
             statement.setString(2, password);
             statement.setString(3, username);
@@ -18,7 +18,12 @@ public class UserDao extends BaseDao {
             statement.setString(5, lastName);
             statement.setInt(6, age);
             statement.executeUpdate();
-            DataHelper.setUser(new User(getUserIdByEmail(email), email, password, username, firstName, lastName, age));
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int userId = generatedKeys.getInt(1);
+                DataHelper.setUser(new User(userId, email, password, username, firstName, lastName, age));
+            }
         } catch (SQLException e) {
             throw new RuntimeException();
         }
