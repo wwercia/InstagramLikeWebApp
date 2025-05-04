@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.client.mainPages;
+package com.werka.instagramlikewebapp.client.mainPages.create;
 
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
@@ -18,6 +18,7 @@ public class CreateController extends HttpServlet  {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("isImageAdded", false);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/create.jsp").forward(req, resp);
     }
 
@@ -28,6 +29,9 @@ public class CreateController extends HttpServlet  {
         String originalFileName = filePart.getSubmittedFileName();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         filePart.write("C:\\SharrieUploads\\" + newImageName + extension);
+
+        req.setAttribute("isImageAdded", true);
+        req.setAttribute("imageName", newImageName + extension);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/create.jsp").forward(req, resp);
     }
 }
