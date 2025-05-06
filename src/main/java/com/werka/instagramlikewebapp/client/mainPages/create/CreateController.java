@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @MultipartConfig
 @WebServlet("/create")
@@ -18,19 +20,30 @@ public class CreateController extends HttpServlet  {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("isImageAdded", false);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/create.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String description = req.getParameter("description");
+        String location = req.getParameter("location");
+        List<String> collab = new ArrayList<>();
+        String[] collaborators = req.getParameterValues("collaborators");
+        if (collaborators != null) {
+            for (String collaborator : collaborators) {
+                if (!collaborator.trim().isEmpty()) {
+                    collab.add(collaborator);
+                }
+            }
+        }
+
         Part filePart = req.getPart("file");
-        String newImageName = postService.savePost(1, "blank", "dobry dzień miałam haha", "Warszawa", 5);
+        String newImageName = postService.savePostAndCollaborators(1, "blank", description, location, 0, collab);
         String originalFileName = filePart.getSubmittedFileName();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         filePart.write("C:\\SharrieUploads\\" + newImageName + extension);
 
-        req.setAttribute("isImageAdded", true);
         req.setAttribute("imageName", newImageName + extension);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/create.jsp").forward(req, resp);
     }

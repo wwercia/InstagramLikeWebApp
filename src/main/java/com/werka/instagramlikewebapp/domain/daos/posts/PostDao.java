@@ -5,11 +5,12 @@ import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class PostDao extends BaseDao {
 
     // returns new image name
-    public String savePost(int userId, String imageName, String description, String location, int likes) {
+    public Integer savePost(int userId, String imageName, String description, String location, int likes) {
 
         final String sql = "INSERT INTO post (user_id, image_name, description, location, likes) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
@@ -23,13 +24,20 @@ public class PostDao extends BaseDao {
             int rowsAffected =  statement.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if(resultSet.next())
-                    return "post" + resultSet.getInt(1);
+                if(resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
             }
             return null;
         } catch (SQLException e) {
             throw new RuntimeException();
         }
+    }
+
+    public void saveCollaborators(int postId, List<String> collaborators) {
+
+        //potrzebne są id collaboratorów bo tu mamy nazwy
+
     }
 
     public List<Post> getPostsByUserId(int userId){

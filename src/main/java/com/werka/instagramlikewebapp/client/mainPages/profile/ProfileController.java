@@ -1,7 +1,6 @@
-package com.werka.instagramlikewebapp.client.mainPages;
+package com.werka.instagramlikewebapp.client.mainPages.profile;
 
 import com.werka.instagramlikewebapp.config.DataHelper;
-import com.werka.instagramlikewebapp.domain.api.ProfileInfo;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.services.ProfileService;
 import jakarta.servlet.ServletException;

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-@WebServlet("/images/*")
+@WebServlet("/uploads/*")
 public class ImageServlet extends HttpServlet {
 
     private static final String IMAGE_DIR = "C://SharrieUploads/";
@@ -18,10 +18,14 @@ public class ImageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String imageName = req.getPathInfo();
+
         if (imageName == null || imageName.equals("/")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Brak nazwy pliku.");
             return;
         }
+
+        if(imageName.equals("/sharrie main image.png"))
+            return;
 
         // Usuwamy "/ na początku, bo req.getPathInfo() zawiera pełną ścieżkę
         imageName = imageName.substring(1);

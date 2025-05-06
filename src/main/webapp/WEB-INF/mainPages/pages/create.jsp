@@ -13,27 +13,48 @@
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/createStyles.css">
+
     </head>
     <body>
         <div class="main-container">
-            <%@include file="../segments/sidebar.jspf"%>
+            <%@include file="../segments/sidebar.jspf" %>
             <main>
 
-                <c:if test="${!requestScope.isImageAdded}">
-                    <form action="${pageContext.request.contextPath}/create" method="POST" enctype="multipart/form-data">
-                        <label for="fileUpload">Wybierz zdjęcie:</label>
-                        <input type="file" id="fileUpload" name="file" accept="image/*">
-                        <button type="submit">Prześlij</button>
+                <h1>Create new post</h1>
+
+                <form class="upload-form" action="${pageContext.request.contextPath}/create" method="POST"
+                      enctype="multipart/form-data">
+                    <label for="fileUpload">Wybierz zdjęcie:</label>
+                    <input type="file" id="fileUpload" name="file" accept="image/*">
+                    <img id="preview" style="display:none; max-width: 100%; margin-top: 1rem;"/>
+                    <button type="submit">Prześlij</button>
+                </form>
+
+                <div class="post-info">
+                    <form action="${pageContext.request.contextPath}/addPost" method="POST" enctype="multipart/form-data">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description" minlength="5" required>
+
+                        <label for="locaton">Location:</label>
+                        <input type="text" id="locaton" name="locaton">
+
+                        <div id="collaborators">
+                            <label>Collaborator :
+                                <input type="text" name="collaborators[]" required>
+                            </label>
+                        </div>
+                        <button type="button" onclick="addCollaborator()">Add collaborator</button>
+                        <br><br>
+
+                        <button type="submit">Share</button>
                     </form>
-                </c:if>
-
-                <c:if test="${requestScope.isImageAdded}">
-
-                    <img src="${pageContext.request.contextPath}/images/${requestScope.imageName}" alt="Your photo"/>
-
-                </c:if>
-
+                </div>
             </main>
         </div>
+
+        <script src="${pageContext.request.contextPath}/scripts/displayImagePreview.js"></script>
+        <script src="${pageContext.request.contextPath}/scripts/addCollaborator.js"></script>
+
     </body>
 </html>
