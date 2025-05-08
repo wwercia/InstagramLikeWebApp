@@ -1,5 +1,6 @@
 
 .sidebar {
+    overflow-y: auto;
     width: 15%;
     background-color: #1f3e6a;
     padding: 20px;

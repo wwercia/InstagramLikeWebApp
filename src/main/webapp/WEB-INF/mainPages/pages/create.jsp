@@ -23,34 +23,39 @@
 
                 <h1>Create new post</h1>
 
-                <form class="upload-form" action="${pageContext.request.contextPath}/create" method="POST"
-                      enctype="multipart/form-data">
-                    <label for="fileUpload">Wybierz zdjęcie:</label>
-                    <input type="file" id="fileUpload" name="file" accept="image/*">
-                    <img id="preview" style="display:none; max-width: 100%; margin-top: 1rem;"/>
-                    <button type="submit">Prześlij</button>
-                </form>
+                <div class="forms-container">
+                    <form class="upload-form" action="${pageContext.request.contextPath}/create" method="POST"
+                          enctype="multipart/form-data">
+                        <label for="fileUpload">Choose an image:</label>
+                        <input type="file" id="fileUpload" name="file" accept="image/*" class="input">
+                        <img id="preview" class="image-preview"/>
+                        <button id="submit-button" type="submit">Upload</button>
+                    </form>
 
-                <div class="post-info">
-                    <form action="${pageContext.request.contextPath}/addPost" method="POST" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/addPost" method="POST" enctype="multipart/form-data" class="post-info-form">
                         <label for="description">Description:</label>
-                        <input type="text" id="description" name="description" minlength="5" required>
+                        <textarea id="description" name="description" class="description" rows="6" maxlength="200"></textarea>
 
                         <label for="locaton">Location:</label>
-                        <input type="text" id="locaton" name="locaton">
+                        <input type="text" id="locaton" name="locaton" class="input">
 
-                        <div id="collaborators">
-                            <label>Collaborator :
-                                <input type="text" name="collaborators[]" required>
+                        <div id="collaborators" class="collaborators">
+                            <label class="collaborator-label">Collaborator:
+                                <input type="text" name="collaborators[]" required id="collaborator-input">
                             </label>
                         </div>
-                        <button type="button" onclick="addCollaborator()">Add collaborator</button>
+                        <button id="addCollaboratorButton" type="button" onclick="addCollaborator()">Add collaborator</button>
+                        <p id="collaboratorLimitMessage" style="color: red; display: none;">
+                            The maximum number of collaborators is 10!
+                        </p>
                         <br><br>
 
                         <button type="submit">Share</button>
                     </form>
                 </div>
+
             </main>
+
         </div>
 
         <script src="${pageContext.request.contextPath}/scripts/displayImagePreview.js"></script>

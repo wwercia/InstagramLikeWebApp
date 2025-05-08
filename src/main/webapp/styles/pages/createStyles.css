@@ -1,39 +1,119 @@
 
-.upload-form {
+main {
+    flex-grow: 1;  /* Główna zawartość wypełnia pozostałą część ekranu */
+    padding: 20px;
+    background-color: #e9eff9;
+    overflow-y: auto;  /* Jeśli zawartość w main jest za duża, pojawi się pasek przewijania */
+    height: 100vh;  /* Wysokość głównej zawartości również ustawiamy na pełną wysokość okna */
+}
+
+h1 {
+    text-align: center;
+    color: #1e293e;
+    margin-bottom: 5%;
+    font-size: 32px;
+}
+
+.forms-container {
+    display: flex;
+    gap: 8%;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    height: auto;
+    align-items: flex-start;
+    margin: 0 auto;
+}
+
+.upload-form,
+.post-info-form {
+    background-color: #bbcaea;
+    border: 2px solid #1e293e;
+    border-radius: 12px;
+    padding: 2%;
+    width: 30%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    max-width: 400px;
-    margin: 2rem auto;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
 }
 
-.upload-form label {
+label {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2%;
+    font-size: 18px;
 }
 
-.upload-form input[type="file"] {
+.input,
+.description{
+    width: 100%;
+    padding: 3%;
+    border: 1px solid #888;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 7%;
+}
+
+.input:focus,
+.description:focus,
+.collaborator-input:focus {
+    border-color: #1e93ff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(30, 147, 255, 0.3);
+}
+
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
     border: 1px solid #ccc;
-    padding: 0.5rem;
     border-radius: 6px;
-    background-color: #fff;
+    margin-top: 5%;
 }
 
-.upload-form button {
-    background-color: #4773ba;
+
+
+button {
+    background-color: #1e93ff;
     color: white;
     border: none;
-    padding: 0.75rem;
+    padding: 14px 20px;
     border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.upload-form button:hover {
-    background-color: #275087;
+button:hover {
+    background-color: #0d6ecd;
+}
+
+#submit-button {
+    margin-top: 5%;
+}
+
+.collaborators {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    margin-bottom: 3%;
+}
+
+.collaborator-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2%;
+}
+
+#collaborator-input {
+    margin-left: 1%;
+    margin-top: 1%;
+    width: 74%;
+    padding: 3px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    font-size: 16px;
 }
