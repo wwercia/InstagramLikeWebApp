@@ -88,9 +88,6 @@ public class UserDao extends BaseDao {
     }
 
     public String getUsernameById(int userId) {
-
-        System.out.println(userId);
-
         final String sql = "SELECT username FROM user WHERE id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

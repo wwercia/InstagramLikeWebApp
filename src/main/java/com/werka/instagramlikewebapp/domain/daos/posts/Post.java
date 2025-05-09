@@ -10,14 +10,16 @@ public class Post {
     private String description;
     private String location;
     private int likes;
+    private String extension;
 
-    public Post(int id, int userId, String imageName, String description, String location, int likes) {
+    public Post(int id, int userId, String imageName, String description, String location, int likes, String extension) {
         this.id = id;
         this.userId = userId;
         this.imageName = imageName;
         this.location = location;
         this.description = description;
         this.likes = likes;
+        this.extension = extension;
     }
 
     public int getId() {
@@ -66,5 +68,25 @@ public class Post {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", imageName='" + imageName + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", likes=" + likes +
+                '}';
     }
 }

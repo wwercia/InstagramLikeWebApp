@@ -10,9 +10,9 @@ import java.util.StringJoiner;
 public class PostDao extends BaseDao {
 
     // returns new image name
-    public Integer savePost(int userId, String imageName, String description, String location, int likes) {
+    public Integer savePost(int userId, String imageName, String description, String location, int likes, String imageExtension) {
 
-        final String sql = "INSERT INTO post (user_id, image_name, description, location, likes) VALUES (?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO post (user_id, image_name, description, location, likes, image_extension) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
@@ -20,6 +20,7 @@ public class PostDao extends BaseDao {
             statement.setString(3, description);
             statement.setString(4, location);
             statement.setInt(5, likes);
+            statement.setString(6, imageExtension);
 
             int rowsAffected =  statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -69,6 +70,18 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public void changeImageExtension(String extension, int postId) {
+        final String sql = "UPDATE post SET `image_extension` = ? WHERE (`id` = ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, extension);
+            statement.setInt(2, postId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private int getPostIdFromPostName(String postName) {
         return Integer.parseInt(postName.replace("post", ""));
     }
@@ -80,7 +93,8 @@ public class PostDao extends BaseDao {
         String description = resultSet.getString("description");
         String location = resultSet.getString("location");
         int likes = resultSet.getInt("likes");
-        return new Post(id, userId, imageName, description, location, likes);
+        String imageExtension = resultSet.getString("image_extension");
+        return new Post(id, userId, imageName, description, location, likes, imageExtension);
     }
 
 }

@@ -39,9 +39,9 @@ public class CreateController extends HttpServlet  {
         }
 
         Part filePart = req.getPart("file");
-        String newImageName = postService.savePostAndCollaborators(1, "blank", description, location, 0, collab);
         String originalFileName = filePart.getSubmittedFileName();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String newImageName = postService.savePostAndCollaborators(1, "blank", description, location, 0, collab, extension);
         filePart.write("C:\\SharrieUploads\\" + newImageName + extension);
 
         req.setAttribute("imageName", newImageName + extension);

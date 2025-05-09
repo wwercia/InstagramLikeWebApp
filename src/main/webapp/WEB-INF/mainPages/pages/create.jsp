@@ -24,33 +24,37 @@
                 <h1>Create new post</h1>
 
                 <div class="forms-container">
-                    <form class="upload-form" action="${pageContext.request.contextPath}/create" method="POST"
-                          enctype="multipart/form-data">
-                        <label for="fileUpload">Choose an image:</label>
-                        <input type="file" id="fileUpload" name="file" accept="image/*" class="input">
-                        <img id="preview" class="image-preview"/>
-                        <button id="submit-button" type="submit">Upload</button>
-                    </form>
 
-                    <form action="${pageContext.request.contextPath}/addPost" method="POST" enctype="multipart/form-data" class="post-info-form">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" class="description" rows="6" maxlength="200"></textarea>
 
-                        <label for="locaton">Location:</label>
-                        <input type="text" id="locaton" name="locaton" class="input">
 
-                        <div id="collaborators" class="collaborators">
-                            <label class="collaborator-label">Collaborator:
-                                <input type="text" name="collaborators[]" required id="collaborator-input">
-                            </label>
+                    <form action="${pageContext.request.contextPath}/create" method="POST" enctype="multipart/form-data" class="post-info-form">
+
+
+                        <div class="image-container">
+                            <label for="fileUpload">Choose an image:</label>
+                            <input type="file" id="fileUpload" name="file" accept="image/*" class="input">
+                            <img id="preview" class="image-preview"/>
                         </div>
-                        <button id="addCollaboratorButton" type="button" onclick="addCollaborator()">Add collaborator</button>
-                        <p id="collaboratorLimitMessage" style="color: red; display: none;">
-                            The maximum number of collaborators is 10!
-                        </p>
-                        <br><br>
 
-                        <button type="submit">Share</button>
+                        <div class="info-container">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" class="description" rows="6" maxlength="200"></textarea>
+
+                            <label for="locaton">Location:</label>
+                            <input type="text" id="locaton" name="locaton" class="input" maxlength="55">
+
+                            <div id="collaborators" class="collaborators">
+                                <label class="collaborator-label">Collaborator:
+                                    <input type="text" name="collaborators[]" id="collaborator-input">
+                                </label>
+                            </div>
+                            <button id="addCollaboratorButton" type="button" onclick="addCollaborator()">Add collaborator</button>
+                            <p id="collaboratorLimitMessage" style="color: red; display: none;">
+                                The maximum number of collaborators is 10!
+                            </p>
+                            <button class="submit-button" type="submit">Share</button>
+                        </div>
+
                     </form>
                 </div>
 
