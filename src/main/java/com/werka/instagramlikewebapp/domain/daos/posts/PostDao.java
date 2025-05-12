@@ -5,11 +5,9 @@ import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class PostDao extends BaseDao {
 
-    // returns new image name
     public Integer savePost(int userId, String imageName, String description, String location, int likes, String imageExtension) {
 
         final String sql = "INSERT INTO post (user_id, image_name, description, location, likes, image_extension) VALUES (?, ?, ?, ?, ?, ?)";
@@ -22,26 +20,79 @@ public class PostDao extends BaseDao {
             statement.setInt(5, likes);
             statement.setString(6, imageExtension);
 
-            int rowsAffected =  statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if(resultSet.next()) {
+                if (resultSet.next()) {
                     return resultSet.getInt(1);
                 }
             }
             return null;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy zapisie posta", e);
         }
     }
 
     public void saveCollaborators(int postId, List<String> collaborators) {
 
-        //potrzebne są id collaboratorów bo tu mamy nazwy
+        System.out.println(" w saveCollaborators");
 
+        List<Integer> userIds = getUserIdsByUsernames(collaborators);
+
+        System.out.println(userIds);
+
+        String sql = "INSERT INTO post_collaborators (post_id, user_collaborator_id) VALUES (?, ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (Integer userId : userIds) {
+                statement.setInt(1, postId);
+                statement.setInt(2, userId);
+                statement.addBatch();
+            }
+            statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy zapisie posta", e);
+        }
     }
 
-    public List<Post> getPostsByUserId(int userId){
+    private List<Integer> getUserIdsByUsernames(List<String> names) {
+        System.out.println(" w getUserIdsByUsernames");
+        System.out.println(names);
+        List<Integer> userIds = new ArrayList<>();
+        if (names == null || names.isEmpty()) return userIds;
+        String sql = "SELECT id FROM user WHERE username IN (" + buildPlaceholders(names.size()) + ")";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < names.size(); i++) {
+                statement.setString(i + 1, names.get(i));
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                userIds.add(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy zapisie posta", e);
+        }
+        return userIds;
+    }
+
+    private String buildPlaceholders(int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append("?");
+            if (i < count - 1) {
+                sb.append(", ");
+            }
+        }
+        System.out.println("w buildPlaceholders: " + sb.toString());
+        return sb.toString();
+    }
+
+    public List<Post> getPostsByUserId(int userId) {
         List<Post> posts = new ArrayList<>();
         final String sql = "SELECT * FROM post WHERE `user_id` = ?";
         try (Connection connection = getConnection();
@@ -53,7 +104,8 @@ public class PostDao extends BaseDao {
             }
             return posts;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy zapisie posta", e);
         }
     }
 

@@ -10,7 +10,7 @@ function addCollaborator() {
 
     const label = document.createElement('label');
     label.className = 'collaborator-label';
-    label.innerHTML = `Collaborator: <input type="text" name="collaborators[]" required id="collaborator-input">`;
+    label.innerHTML = `Collaborator: <input type="text" name="collaborators" required class="collaborator-input">`;
 
     container.appendChild(label);
 }

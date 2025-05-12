@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.client.mainPages.create;
+package com.werka.instagramlikewebapp.client.images;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;

@@ -38,6 +38,8 @@ public class CreateController extends HttpServlet  {
             }
         }
 
+        System.out.println(collab);
+
         Part filePart = req.getPart("file");
         String originalFileName = filePart.getSubmittedFileName();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));

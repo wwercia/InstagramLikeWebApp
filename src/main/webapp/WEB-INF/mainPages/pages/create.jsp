@@ -45,7 +45,7 @@
 
                             <div id="collaborators" class="collaborators">
                                 <label class="collaborator-label">Collaborator:
-                                    <input type="text" name="collaborators[]" id="collaborator-input">
+                                    <input type="text" name="collaborators" class="collaborator-input">
                                 </label>
                             </div>
                             <button id="addCollaboratorButton" type="button" onclick="addCollaborator()">Add collaborator</button>
