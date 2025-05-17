@@ -1,8 +1,93 @@
 
-.top-info {
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #e9eff9;
+}
+
+
+.profile-information{
+    margin-top: 5%;
+    height: 20%;
+    width: 85%;
+    align-self: center;
+    justify-self: center;
+}
+
+.top-profile-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
 
 }
 
-.bottom-info {
+.username {
+    font-size: 24px;
+    font-weight: bold;
+}
 
+.top-profile-info form  {
+    margin-left: 5%;
+}
+
+.top-profile-info form button {
+    background-color: #446ba5;
+    color: white;
+    border: none;
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bottom-profile-info {
+
+}
+
+
+
+.bottom-box {
+    margin-top: 3%;
+    width: 85%;
+    align-self: center;
+    height: 70%;
+}
+
+.photos-options{
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+.option-button {
+    background-color: #446ba5;
+    color: white;
+    border: none;
+    padding: 0.9rem 1.2rem;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.photos {
+    margin-top: 3%;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.photo {
+    cursor: pointer;
 }

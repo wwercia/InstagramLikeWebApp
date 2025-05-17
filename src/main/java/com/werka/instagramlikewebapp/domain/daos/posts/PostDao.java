@@ -134,6 +134,20 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public Post getPostByImageName(String imageName) {
+        final String sql = "SELECT * FROM post WHERE `image_name` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, imageName);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return getPostFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu posta po nazwie", e);
+        }
+    }
+
     private int getPostIdFromPostName(String postName) {
         return Integer.parseInt(postName.replace("post", ""));
     }

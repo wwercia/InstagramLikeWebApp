@@ -24,4 +24,8 @@ public class PostService {
         return postDao.getPostsByUserId(DataHelper.getUser().getId());
     }
 
+    public Post getPostByImageName(String imageName) {
+        return postDao.getPostByImageName(imageName);
+    }
+
 }

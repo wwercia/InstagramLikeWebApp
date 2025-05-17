@@ -1,0 +1,9 @@
+
+<div class="post">
+    <img src="${pageContext.request.contextPath}/uploads/${post.imageName}${post.extension}" alt="Your photo"/>
+    <p>${post.description}</p>
+    <c:if test="${post.location != null}">
+        <p>Location: ${post.location}</p>
+    </c:if>
+    <p>${post.likes} likes</p>
+</div>

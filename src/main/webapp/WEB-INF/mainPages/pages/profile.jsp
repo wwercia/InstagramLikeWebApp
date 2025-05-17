@@ -21,16 +21,16 @@
             <main>
 
                 <div class="profile-information">
-                    <div class="top-info">
-                        <img src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
+                    <div class="top-profile-info">
+                        <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
                         <p class="username">${requestScope.username}</p>
 
                         <form action="profile" method="post">
                             <button type="submit">Edit profile</button>
                         </form>
                     </div>
-                    <div class="bottom-info">
-                        <p>${requestScope.postsQuantity} post</p>
+                    <div class="bottom-profile-info">
+                        <p>${requestScope.postsQuantity} posts</p>
                         <p>${requestScope.followers} followers</p>
                         <p>${requestScope.following} following</p>
                         <p>${requestScope.bio}</p>
@@ -41,13 +41,13 @@
 
                     <div class="photos-options">
                         <form action="${pageContext.request.contextPath}/profile/posts" method="get">
-                            <button type="submit">Posts</button>
+                            <button class="option-button" type="submit">Posts</button>
                         </form>
                         <form action="${pageContext.request.contextPath}/profile/saved" method="get">
-                            <button type="submit">Saved</button>
+                            <button class="option-button" type="submit">Saved</button>
                         </form>
                         <form action="${pageContext.request.contextPath}/profile/tagged" method="get">
-                            <button type="submit">Tagged</button>
+                            <button class="option-button" type="submit">Tagged</button>
                         </form>
                     </div>
 
@@ -61,6 +61,7 @@
                             <jsp:include page="../segments/profile/${requestScope.file}.jspf"/>
                         </c:if>
                     </div>
+
 
                 </div>
 

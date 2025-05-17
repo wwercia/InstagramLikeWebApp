@@ -1,5 +1,5 @@
-package com.werka.instagramlikewebapp.client.mainPages.profile;
-;
+package com.werka.instagramlikewebapp.client.mainPages;
+
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
@@ -9,21 +9,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
-@WebServlet("/profile/posts")
-public class PostsController extends HttpServlet {
+@WebServlet("/post")
+public class PostController extends HttpServlet {
 
-    private PostService postService = new PostService();
+    private final PostService postService = new PostService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("file", "posts");
-        List<Post> posts = postService.getUserPosts();
-        Collections.reverse(posts);
-        req.setAttribute("posts", posts);
-        req.getRequestDispatcher("/profile").forward(req, resp);
-    }
 
+        String imageName = req.getParameter("imageName");
+        Post post = postService.getPostByImageName(imageName);
+        req.setAttribute("post", post);
+
+        req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
+    }
 }

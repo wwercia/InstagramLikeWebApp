@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet("/profile")
@@ -29,6 +30,7 @@ public class ProfileController extends HttpServlet {
         req.setAttribute("following", profileInfo.getFollowing());
         req.setAttribute("bio", profileInfo.getBio());
         List<Post> posts = postService.getUserPosts();
+        Collections.reverse(posts);
         req.setAttribute("posts", posts);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/profile.jsp").forward(req, resp);
     }
