@@ -16,10 +16,11 @@ public class PostController extends HttpServlet {
     private final PostService postService = new PostService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String imageName = req.getParameter("imageName");
         Post post = postService.getPostByImageName(imageName);
+        System.out.println(post);
         req.setAttribute("post", post);
 
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);

@@ -2,12 +2,14 @@
 
 
 <c:forEach var="post" items="${requestScope.posts}">
-    <form id="postForm" action="${pageContext.request.contextPath}/post" method="get">
-        <input type="hidden" name="imageName" value="${post.imageName}" />
-        <img class="photo"
-             src="${pageContext.request.contextPath}/uploads/${post.imageName}${post.extension}"
-             alt="Your photo"
-             onclick="document.getElementById('postForm').submit();"/>
-    </form>
+    <div class="post">
+        <form id="${post.imageName}" action="${pageContext.request.contextPath}/post" method="post">
+            <input type="hidden" name="imageName" value="${post.imageName}" />
+            <img class="photo"
+                 src="${pageContext.request.contextPath}/uploads/${post.imageName}${post.extension}"
+                 alt="Your photo"
+                 onclick="document.getElementById('${post.imageName}').submit();"/>
+        </form>
+    </div>
 </c:forEach>
 
