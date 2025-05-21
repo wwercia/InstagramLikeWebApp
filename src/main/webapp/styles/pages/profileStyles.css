@@ -21,11 +21,11 @@ main {
 }
 
 .top-profile-info{
-
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
 .user-profile-photo {
@@ -121,21 +121,28 @@ main {
     padding: 10px;
 }
 
+
+
 .post {
     width: calc(33.333% - 10px);
-    cursor: pointer;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    padding-top: 50%;
 }
 
 .photo {
-    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform .2s;
 }
 
-.photo:hover {
-    transform: scale(1.05);
+.photos, .post {
+    will-change: transform;
 }
