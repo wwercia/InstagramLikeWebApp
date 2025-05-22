@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/profileStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/postsStyles.css">
     </head>
         <body>
         <div class="main-container">
@@ -25,7 +26,7 @@
                         <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
                         <p class="username">${requestScope.username}</p>
 
-                        <form action="profile" method="post">
+                        <form action="editProfile" method="post">
                             <button type="submit">Edit profile</button>
                         </form>
                     </div>
@@ -52,19 +53,14 @@
                     </div>
 
                     <div class="photos">
-
                         <c:if test="${requestScope.file == null}">
                             <jsp:include page="../segments/profile/posts.jspf"/>
                         </c:if>
-
                         <c:if test="${requestScope.file != null}">
                             <jsp:include page="../segments/profile/${requestScope.file}.jspf"/>
                         </c:if>
                     </div>
-
-
                 </div>
-
             </main>
         </div>
     </body>

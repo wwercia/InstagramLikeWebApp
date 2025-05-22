@@ -28,4 +28,8 @@ public class PostService {
         return postDao.getPostByImageName(imageName);
     }
 
+    public List<Post> getUserTaggedPosts() {
+        return postDao.getUserTaggedPostsByUserId(DataHelper.getUser().getId());
+    }
+
 }

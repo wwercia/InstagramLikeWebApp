@@ -35,15 +35,8 @@ public class PostDao extends BaseDao {
     }
 
     public void saveCollaborators(int postId, List<String> collaborators) {
-
-        System.out.println(" w saveCollaborators");
-
         List<Integer> userIds = getUserIdsByUsernames(collaborators);
-
-        System.out.println(userIds);
-
         String sql = "INSERT INTO post_collaborators (post_id, user_collaborator_id) VALUES (?, ?)";
-
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             for (Integer userId : userIds) {
@@ -59,8 +52,6 @@ public class PostDao extends BaseDao {
     }
 
     private List<Integer> getUserIdsByUsernames(List<String> names) {
-        System.out.println(" w getUserIdsByUsernames");
-        System.out.println(names);
         List<Integer> userIds = new ArrayList<>();
         if (names == null || names.isEmpty()) return userIds;
         String sql = "SELECT id FROM user WHERE username IN (" + buildPlaceholders(names.size()) + ")";
@@ -88,7 +79,6 @@ public class PostDao extends BaseDao {
                 sb.append(", ");
             }
         }
-        System.out.println("w buildPlaceholders: " + sb.toString());
         return sb.toString();
     }
 
@@ -105,8 +95,45 @@ public class PostDao extends BaseDao {
             return posts;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Błąd przy zapisie posta", e);
+            throw new RuntimeException("Błąd przy pobieraniu postów po id użytkownika", e);
         }
+    }
+
+    public List<Post> getUserTaggedPostsByUserId(int userId) {
+        List<Integer> postIds = new ArrayList<>();
+        final String sql = "SELECT * FROM post_collaborators WHERE `user_collaborator_id` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                postIds.add(resultSet.getInt("post_id"));
+            }
+            return getPostsById(postIds);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu postów w których zotał oznaczony użytkownik po id użytkownika", e);
+        }
+    }
+
+    private List<Post> getPostsById(List<Integer> postIds) {
+        List<Post> posts = new ArrayList<>();
+        if (postIds == null || postIds.isEmpty()) return new ArrayList<>();
+        String sql = "SELECT * FROM post WHERE id IN (" + buildPlaceholders(postIds.size()) + ")";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < postIds.size(); i++) {
+                statement.setInt(i + 1, postIds.get(i));
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                posts.add(getPostFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu postó przez id", e);
+        }
+        return posts;
     }
 
     public void changeImageName(String newName) {
