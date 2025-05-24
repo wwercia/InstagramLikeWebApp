@@ -17,6 +17,7 @@ public class PostDao extends BaseDao {
             statement.setString(2, imageName);
             statement.setString(3, description);
             statement.setString(4, location);
+            System.out.println(location);
             statement.setInt(5, likes);
             statement.setString(6, imageExtension);
 

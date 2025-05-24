@@ -40,8 +40,8 @@
                             <label for="description">Description:</label>
                             <textarea id="description" name="description" class="description" rows="6" maxlength="200"></textarea>
 
-                            <label for="locaton">Location:</label>
-                            <input type="text" id="locaton" name="locaton" class="input" maxlength="55">
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" class="input" maxlength="55">
 
                             <div id="collaborators" class="collaborators">
                                 <label class="collaborator-label">Collaborator:

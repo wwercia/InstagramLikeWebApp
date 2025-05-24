@@ -39,6 +39,7 @@ public class CreateController extends HttpServlet  {
         }
 
         System.out.println(collab);
+        System.out.println("location" + location);
 
         Part filePart = req.getPart("file");
         String originalFileName = filePart.getSubmittedFileName();

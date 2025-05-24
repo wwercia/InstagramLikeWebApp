@@ -1,0 +1,25 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: wwerc
+  Date: 24.05.2025
+  Time: 14:33
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+    <head>
+        <title>Sharrie</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
+    </head>
+    <body>
+        <div class="main-container">
+            <%@include file="../segments/sidebar.jspf"%>
+            <main>
+
+
+
+            </main>
+        </div>
+    </body>
+</html>

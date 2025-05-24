@@ -10,8 +10,8 @@ public class PostService {
 
     private PostDao postDao = new PostDao();
 
-    public String savePostAndCollaborators(int userId, String imageName, String desciption, String location, int likes, List<String> collaborators, String extension) {
-        int postId = postDao.savePost(userId, imageName, desciption, location, likes, extension);
+    public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
+        int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
         String newImageName = "post" + postId;
         postDao.changeImageName(newImageName);
         postDao.changeImageExtension(extension, postId);

@@ -26,7 +26,7 @@
                         <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
                         <p class="username">${requestScope.username}</p>
 
-                        <form action="editProfile" method="post">
+                        <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
                             <button type="submit">Edit profile</button>
                         </form>
                     </div>

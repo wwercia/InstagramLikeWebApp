@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
     <head>
         <title>Sharrie</title>
@@ -14,22 +16,18 @@
     </head>
     <body>
         <div class="main-container">
-            <%@include file="../segments/sidebar.jspf"%>
+            <%@include file="../segments/sidebar.jspf" %>
             <main>
-
                 <h1>Post!</h1>
 
-                <c:forEach var="post" items="${requestScope.posts}">
-                    <div class="post">
-                        <img src="${pageContext.request.contextPath}/uploads/${post.imageName}${post.extension}" alt="Your post"/>
-                        <p>${post.description}</p>
-                        <c:if test="${post.location != null}">
-                            <p>Location: ${post.location}</p>
-                        </c:if>
-                        <p>${post.likes} likes</p>
-                    </div>
-                </c:forEach>
-
+                <div class="post">
+                    <img src="${pageContext.request.contextPath}/uploads/${requestScope.post.imageName}${requestScope.post.extension}" alt="Your post"/>
+                    <p>${requestScope.post.description}</p>
+                    <c:if test="${not empty requestScope.post.location and requestScope.post.location != 'null'}">
+                        <p>Location: ${requestScope.post.location}</p>
+                    </c:if>
+                    <p>${requestScope.post.likes} likes</p>
+                </div>
 
             </main>
         </div>
