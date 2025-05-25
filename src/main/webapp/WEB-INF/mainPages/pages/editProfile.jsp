@@ -17,7 +17,24 @@
             <%@include file="../segments/sidebar.jspf"%>
             <main>
 
+                <form action="${pageContext.request.contextPath}/profile/editProfile" enctype="multipart/form-data" method="post">
+                    <label for="fileUpload">Add new profile image:</label>
+                    <input type="file" id="fileUpload" name="file" accept="image/*" class="input" required>
+                    <img id="preview" class="image-preview"/>
+                    <button>Submit</button>
+                </form>
 
+                <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" value="${requestScope.profile.username}" required>
+                    <button>Submit</button>
+                </form>
+
+                <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" rows="4" maxlength="200" required>${requestScope.profile.bio}</textarea>
+                    <button>Submit</button>
+                </form>
 
             </main>
         </div>

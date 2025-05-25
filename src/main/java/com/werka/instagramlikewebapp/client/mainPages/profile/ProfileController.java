@@ -29,6 +29,7 @@ public class ProfileController extends HttpServlet {
         req.setAttribute("followers", profileInfo.getFollowers());
         req.setAttribute("following", profileInfo.getFollowing());
         req.setAttribute("bio", profileInfo.getBio());
+        req.setAttribute("profileImageName", profileInfo.getProfileImageName());
         List<Post> posts = postService.getUserPosts();
         Collections.reverse(posts);
         req.setAttribute("posts", posts);

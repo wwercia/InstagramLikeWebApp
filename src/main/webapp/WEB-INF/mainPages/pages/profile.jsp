@@ -23,10 +23,20 @@
 
                 <div class="profile-information">
                     <div class="top-profile-info">
-                        <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
+
+                        <%-- <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon"> --%>
+
+                        <c:if test="${empty requestScope.profileImageName}">
+                            <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
+                        </c:if>
+
+                        <c:if test="${not empty requestScope.profileImageName}">
+                            <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${requestScope.profileImageName}" alt="profile icon">
+                        </c:if>
+
                         <p class="username">${requestScope.username}</p>
 
-                        <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
+                        <form action="${pageContext.request.contextPath}/profile/editProfile" method="get">
                             <button type="submit">Edit profile</button>
                         </form>
                     </div>

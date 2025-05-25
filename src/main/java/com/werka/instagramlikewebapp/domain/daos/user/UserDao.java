@@ -103,4 +103,16 @@ public class UserDao extends BaseDao {
         }
     }
 
+    public void updateUsername(String username) {
+        final String sql = "UPDATE user SET `username` = ? WHERE (`id` = ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setInt(2, DataHelper.getUser().getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

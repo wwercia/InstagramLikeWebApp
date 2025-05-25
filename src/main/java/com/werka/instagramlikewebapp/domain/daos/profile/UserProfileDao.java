@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.domain.daos.profile;
 
+import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
@@ -20,7 +21,7 @@ public class UserProfileDao extends BaseDao {
     }
 
     public void saveNewProfile(int userId) {
-        final String sql = "INSERT INTO user_profile (user_id, posts_quantity, followers, following, bio) VALUES (?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO user_profile (user_id, posts_quantity, followers, following, bio, profile_image_name) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
@@ -28,10 +29,36 @@ public class UserProfileDao extends BaseDao {
             statement.setInt(3, 0);
             statement.setInt(4, 0);
             statement.setString(5, "bio");
+            statement.setString(6, "");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Błąd przy zapisie posta", e);
+        }
+    }
+
+    public void updateBio(String bio) {
+        final String sql = "UPDATE user_profile SET `bio` = ? WHERE (`user_id` = ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, bio);
+            statement.setInt(2, DataHelper.getUser().getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveNewProfileImage(String imageName) {
+        System.out.println(imageName);
+        final String sql = "UPDATE user_profile SET `profile_image_name` = ? WHERE (`user_id` = ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, imageName);
+            statement.setInt(2, DataHelper.getUser().getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -42,7 +69,8 @@ public class UserProfileDao extends BaseDao {
         int followers = resultSet.getInt("followers");
         int following = resultSet.getInt("following");
         String bio = resultSet.getString("bio");
-        return new UserProfile(id, userId, username, postsQuantity, followers, following, bio);
+        String profileImageName = resultSet.getString("profile_image_name");
+        return new UserProfile(id, userId, username, postsQuantity, followers, following, bio, profileImageName);
     }
 
 }

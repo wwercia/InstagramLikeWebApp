@@ -9,8 +9,9 @@ public class UserProfile {
     private int followers;
     private int following;
     private String bio;
+    private String profileImageName;
 
-    public UserProfile(int id, int userId, String userName, int postsQuantity, int followers, int following, String bio) {
+    public UserProfile(int id, int userId, String userName, int postsQuantity, int followers, int following, String bio, String profileImageName) {
         this.id = id;
         this.userId = userId;
         this.username = userName;
@@ -18,6 +19,7 @@ public class UserProfile {
         this.followers = followers;
         this.following = following;
         this.bio = bio;
+        this.profileImageName = profileImageName;
     }
 
     public int getId() {
@@ -74,5 +76,13 @@ public class UserProfile {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getProfileImageName() {
+        return profileImageName;
+    }
+
+    public void setProfileImageName(String profileImageName) {
+        this.profileImageName = profileImageName;
     }
 }

@@ -25,8 +25,6 @@
 
                 <div class="forms-container">
 
-
-
                     <form action="${pageContext.request.contextPath}/create" method="POST" enctype="multipart/form-data" class="post-info-form">
 
 
