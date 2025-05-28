@@ -10,6 +10,7 @@
     <head>
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/editProfileStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
     </head>
     <body>
@@ -17,26 +18,42 @@
             <%@include file="../segments/sidebar.jspf"%>
             <main>
 
-                <form action="${pageContext.request.contextPath}/profile/editProfile" enctype="multipart/form-data" method="post">
-                    <label for="fileUpload">Add new profile image:</label>
-                    <input type="file" id="fileUpload" name="file" accept="image/*" class="input" required>
-                    <img id="preview" class="image-preview"/>
-                    <button>Submit</button>
-                </form>
+                <div class="form-wrapper">
+                    <form action="${pageContext.request.contextPath}/profile/editProfile" enctype="multipart/form-data" method="post" class="form1">
+                        <label for="fileUpload">Add new profile image:</label>
+                        <input type="file" id="fileUpload" name="file" accept="image/*" class="input" required>
+                        <img id="preview" class="image-preview"/>
+                        <button>Submit</button>
+                    </form>
 
-                <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" name="username" value="${requestScope.profile.username}" required>
-                    <button>Submit</button>
-                </form>
+                    <form action="${pageContext.request.contextPath}/profile/editProfile" method="post" class="form2">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" name="username" value="${requestScope.profile.username}" required>
+                        <button>Submit</button>
+                    </form>
 
-                <form action="${pageContext.request.contextPath}/profile/editProfile" method="post">
-                    <label for="bio">Bio</label>
-                    <textarea id="bio" name="bio" rows="4" maxlength="200" required>${requestScope.profile.bio}</textarea>
-                    <button>Submit</button>
-                </form>
+                    <form action="${pageContext.request.contextPath}/profile/editProfile" method="post" class="form3">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" name="bio" rows="4" maxlength="200" required>${requestScope.profile.bio}</textarea>
+                        <button>Submit</button>
+                    </form>
+                </div>
 
             </main>
         </div>
+
+        <script>
+            const fileInput = document.getElementById('fileUpload');
+            const preview = document.getElementById('preview');
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
+                }
+            });
+        </script>
+
+
     </body>
 </html>
