@@ -24,8 +24,6 @@
                 <div class="profile-information">
                     <div class="top-profile-info">
 
-                        <%-- <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon"> --%>
-
                         <c:if test="${empty requestScope.profileImageName}">
                             <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
                         </c:if>

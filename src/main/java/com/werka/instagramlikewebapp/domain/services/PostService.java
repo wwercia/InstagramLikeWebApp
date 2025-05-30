@@ -3,12 +3,15 @@ package com.werka.instagramlikewebapp.domain.services;
 import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.daos.posts.PostDao;
+import com.werka.instagramlikewebapp.domain.daos.posts.SavedPost;
+import com.werka.instagramlikewebapp.domain.daos.posts.SavedPostDao;
 
 import java.util.List;
 
 public class PostService {
 
     private PostDao postDao = new PostDao();
+    private SavedPostDao savedPostDao = new SavedPostDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -30,6 +33,20 @@ public class PostService {
 
     public List<Post> getUserTaggedPosts() {
         return postDao.getUserTaggedPostsByUserId(DataHelper.getUser().getId());
+    }
+    public void savePostToUserSavedPosts(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        savedPostDao.savePostToUserSavedPosts(postID);
+    }
+
+    public List<Post> getUserSavedPosts() {
+        List<Integer> savedPostIds = savedPostDao.getUserSavedPosts();
+        return postDao.getUserSavedPostsByPostIds(savedPostIds);
+    }
+
+    public boolean isPostSavedInUserSavedPosts(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        return savedPostDao.isPostSavedInUserSavedPosts(postID);
     }
 
 }

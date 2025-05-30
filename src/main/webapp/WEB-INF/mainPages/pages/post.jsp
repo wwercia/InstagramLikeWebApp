@@ -18,10 +18,14 @@
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf" %>
             <main>
-                <h1>Post!</h1>
-
                 <div class="post">
                     <img src="${pageContext.request.contextPath}/uploads/${requestScope.post.imageName}${requestScope.post.extension}" alt="Your post"/>
+
+                    <form action="${pageContext.request.contextPath}/save" method="get">
+                        <input type="hidden" name="imageName" value="${requestScope.post.imageName}" />
+                        <button type="submit">Save</button>
+                    </form>
+
                     <p>${requestScope.post.description}</p>
                     <c:if test="${not empty requestScope.post.location and requestScope.post.location != 'null'}">
                         <p>Location: ${requestScope.post.location}</p>

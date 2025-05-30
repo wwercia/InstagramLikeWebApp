@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
+import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
@@ -178,6 +179,41 @@ public class PostDao extends BaseDao {
 
     private int getPostIdFromPostName(String postName) {
         return Integer.parseInt(postName.replace("post", ""));
+    }
+
+    public int getPostIdByImageName(String imageName) {
+        final String sql = "SELECT id FROM post WHERE image_name = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, imageName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+            return -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu id posta po nazwie", e);
+        }
+    }
+
+    public List<Post> getUserSavedPostsByPostIds(List<Integer> postIds) {
+        List<Post> posts = new ArrayList<>();
+        String sql = "SELECT * FROM post WHERE id IN (" + buildPlaceholders(postIds.size()) + ")";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < postIds.size(); i++) {
+                statement.setInt(i + 1, postIds.get(i));
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                posts.add(getPostFromResultSet(resultSet));
+            }
+            return posts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu id posta po nazwie", e);
+        }
     }
 
     private Post getPostFromResultSet(ResultSet resultSet) throws SQLException {

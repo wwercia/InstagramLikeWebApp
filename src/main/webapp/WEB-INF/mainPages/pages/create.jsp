@@ -27,7 +27,6 @@
 
                     <form action="${pageContext.request.contextPath}/create" method="POST" enctype="multipart/form-data" class="post-info-form">
 
-
                         <div class="image-container">
                             <label for="fileUpload">Choose an image:</label>
                             <input type="file" id="fileUpload" name="file" accept="image/*" class="input">

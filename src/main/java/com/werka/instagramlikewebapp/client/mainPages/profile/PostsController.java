@@ -26,4 +26,6 @@ public class PostsController extends HttpServlet {
         req.getRequestDispatcher("/profile").forward(req, resp);
     }
 
+
+
 }
