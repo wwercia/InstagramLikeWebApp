@@ -19,8 +19,8 @@ public class SavePostController extends HttpServlet {
         String imageName = req.getParameter("imageName");
         if(!postService.isPostSavedInUserSavedPosts(imageName))
             postService.savePostToUserSavedPosts(imageName);
-        //else
-        //    postService.removePostFromUserSavedPosts(imageName);
+        else
+            postService.removePostFromUserSavedPosts(imageName);
         resp.sendRedirect(req.getHeader("Referer"));
     }
 

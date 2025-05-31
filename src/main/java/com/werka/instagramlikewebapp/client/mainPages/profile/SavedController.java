@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/profile/saved")
@@ -25,7 +26,6 @@ public class SavedController extends HttpServlet {
         Collections.reverse(posts);
         req.setAttribute("savedPosts", posts);
         req.getRequestDispatcher("/profile").forward(req, resp);
-
     }
 
 }

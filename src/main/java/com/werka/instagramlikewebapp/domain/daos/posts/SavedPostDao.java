@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SavedPostDao extends BaseDao {
@@ -23,6 +24,8 @@ public class SavedPostDao extends BaseDao {
             while (resultSet.next()) {
                 postIds.add(resultSet.getInt("post_id"));
             }
+
+            System.out.println(postIds);
             return postIds;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,6 +58,18 @@ public class SavedPostDao extends BaseDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Błąd przy zapisie posta", e);
+        }
+    }
+
+    public void removePostFromUserSavedPosts(int postId) {
+        String sql = "DELETE FROM saved_post WHERE post_id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, postId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd usunieciu posta z zapisanych", e);
         }
     }
 

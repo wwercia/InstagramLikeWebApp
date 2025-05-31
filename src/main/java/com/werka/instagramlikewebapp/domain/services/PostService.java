@@ -49,4 +49,9 @@ public class PostService {
         return savedPostDao.isPostSavedInUserSavedPosts(postID);
     }
 
+    public void removePostFromUserSavedPosts(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        savedPostDao.removePostFromUserSavedPosts(postID);
+    }
+
 }

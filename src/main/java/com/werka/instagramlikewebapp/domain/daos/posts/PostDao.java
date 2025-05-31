@@ -6,6 +6,9 @@ import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class PostDao extends BaseDao {
 
@@ -209,7 +212,15 @@ public class PostDao extends BaseDao {
             while (resultSet.next()) {
                 posts.add(getPostFromResultSet(resultSet));
             }
-            return posts;
+
+            Map<Integer, Post> postMap = posts.stream()
+                    .collect(Collectors.toMap(Post::getId, post -> post));
+
+            return postIds.stream()
+                    .map(postMap::get)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Błąd przy pobieraniu id posta po nazwie", e);
