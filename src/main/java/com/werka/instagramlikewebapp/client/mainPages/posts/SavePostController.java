@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.client.mainPages;
+package com.werka.instagramlikewebapp.client.mainPages.posts;
 
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;

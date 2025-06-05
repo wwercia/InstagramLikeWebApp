@@ -1,6 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
+<c:if test="${requestScope.taggedPostsQuantity == 0}">
+    <div class="containerForNoPostsText">
+        <p class="noPostsText">No one tagged you</p>
+    </div>
+</c:if>
 <c:forEach var="post" items="${requestScope.taggedPosts}">
     <div class="post">
         <form id="${post.imageName}" action="${pageContext.request.contextPath}/post" method="get">

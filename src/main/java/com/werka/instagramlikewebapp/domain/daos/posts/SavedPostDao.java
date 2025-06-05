@@ -24,8 +24,6 @@ public class SavedPostDao extends BaseDao {
             while (resultSet.next()) {
                 postIds.add(resultSet.getInt("post_id"));
             }
-
-            System.out.println(postIds);
             return postIds;
         } catch (SQLException e) {
             e.printStackTrace();

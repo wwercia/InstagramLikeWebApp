@@ -227,6 +227,17 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public void increasePostsQuantity(){
+        final String sql = "UPDATE user_profile SET posts_quantity = posts_quantity + 1 WHERE user_id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, DataHelper.getUser().getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private Post getPostFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user_id");

@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<c:if test="${requestScope.savedPostsQuantity == 0}">
+    <div class="containerForNoPostsText">
+        <p  class="noPostsText">You don't have any saved posts</p>
+    </div>
+</c:if>
 <c:forEach var="post" items="${requestScope.savedPosts}">
     <div class="post">
         <form id="${post.imageName}" action="${pageContext.request.contextPath}/post" method="get">

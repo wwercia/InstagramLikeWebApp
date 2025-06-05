@@ -42,7 +42,7 @@
                         <p>${requestScope.postsQuantity} posts</p>
                         <p>${requestScope.followers} followers</p>
                         <p>${requestScope.following} following</p>
-                        <p>${requestScope.bio}</p>
+                        <p style="white-space: pre-line;">${requestScope.bio}</p>
                     </div>
                 </div>
 

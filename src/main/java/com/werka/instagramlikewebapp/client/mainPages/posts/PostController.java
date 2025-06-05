@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.client.mainPages;
+package com.werka.instagramlikewebapp.client.mainPages.posts;
 
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.services.PostService;
@@ -20,6 +20,8 @@ public class PostController extends HttpServlet {
         String imageName = req.getParameter("imageName");
         Post post = postService.getPostByImageName(imageName);
         req.setAttribute("post", post);
+        boolean isPostSavedInUserSavedPosts = postService.isPostSavedInUserSavedPosts(imageName);
+        req.setAttribute("isPostSaved", isPostSavedInUserSavedPosts);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
     }
 }

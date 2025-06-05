@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/profile/saved")
@@ -25,6 +24,7 @@ public class SavedController extends HttpServlet {
         List<Post> posts = postService.getUserSavedPosts();
         Collections.reverse(posts);
         req.setAttribute("savedPosts", posts);
+        req.setAttribute("savedPostsQuantity", posts.size());
         req.getRequestDispatcher("/profile").forward(req, resp);
     }
 

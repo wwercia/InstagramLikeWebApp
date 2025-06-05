@@ -3,9 +3,9 @@ package com.werka.instagramlikewebapp.domain.services;
 import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.daos.posts.PostDao;
-import com.werka.instagramlikewebapp.domain.daos.posts.SavedPost;
 import com.werka.instagramlikewebapp.domain.daos.posts.SavedPostDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostService {
@@ -19,6 +19,7 @@ public class PostService {
         postDao.changeImageName(newImageName);
         postDao.changeImageExtension(extension, postId);
         postDao.saveCollaborators(postId, collaborators);
+        postDao.increasePostsQuantity();
         return newImageName;
     }
 
@@ -41,6 +42,9 @@ public class PostService {
 
     public List<Post> getUserSavedPosts() {
         List<Integer> savedPostIds = savedPostDao.getUserSavedPosts();
+        if(savedPostIds.isEmpty()) {
+            return new ArrayList<>();
+        }
         return postDao.getUserSavedPostsByPostIds(savedPostIds);
     }
 

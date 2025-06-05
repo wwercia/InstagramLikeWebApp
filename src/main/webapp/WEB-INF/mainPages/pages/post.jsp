@@ -13,27 +13,40 @@
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/postStyles.css">
     </head>
     <body>
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf" %>
+
             <main>
                 <div class="post">
                     <img src="${pageContext.request.contextPath}/uploads/${requestScope.post.imageName}${requestScope.post.extension}" alt="Your post"/>
 
-                    <form action="${pageContext.request.contextPath}/save" method="get">
+                    <form id="form" action="${pageContext.request.contextPath}/save" method="get">
+                        <c:if test="${not requestScope.isPostSaved}">
+                            <img src="${pageContext.request.contextPath}/images/icons/post%20not%20saved.png" alt="post not saved icon"
+                                 style="cursor:pointer"
+                                 onclick="document.getElementById('form').submit();">
+                        </c:if>
+                        <c:if test="${requestScope.isPostSaved}">
+                            <img src="${pageContext.request.contextPath}/images/icons/post%20saved.png" alt="post saved icon"
+                                 style="cursor:pointer"
+                                 onclick="document.getElementById('form').submit();">
+                        </c:if>
                         <input type="hidden" name="imageName" value="${requestScope.post.imageName}" />
-                        <button type="submit">Save</button>
                     </form>
 
                     <p>${requestScope.post.description}</p>
                     <c:if test="${not empty requestScope.post.location and requestScope.post.location != 'null'}">
-                        <p>Location: ${requestScope.post.location}</p>
+                        <p class="location">Location: ${requestScope.post.location}</p>
                     </c:if>
                     <p>${requestScope.post.likes} likes</p>
                 </div>
 
             </main>
+
+
         </div>
     </body>
 </html>

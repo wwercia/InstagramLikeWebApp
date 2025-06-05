@@ -23,6 +23,7 @@ public class TaggedController extends HttpServlet {
         List<Post> posts = postService.getUserTaggedPosts();
         Collections.reverse(posts);
         req.setAttribute("taggedPosts", posts);
+        req.setAttribute("taggedPostsQuantity", posts.size());
         req.getRequestDispatcher("/profile").forward(req, resp);
     }
 

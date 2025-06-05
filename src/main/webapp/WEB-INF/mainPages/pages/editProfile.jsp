@@ -34,7 +34,7 @@
 
                     <form action="${pageContext.request.contextPath}/profile/editProfile" method="post" class="form3">
                         <label for="bio">Bio</label>
-                        <textarea id="bio" name="bio" rows="4" maxlength="200" required>${requestScope.profile.bio}</textarea>
+                        <textarea id="bio" name="bio" rows="4" maxlength="40" required>${requestScope.profile.bio}</textarea>
                         <button>Submit</button>
                     </form>
                 </div>
