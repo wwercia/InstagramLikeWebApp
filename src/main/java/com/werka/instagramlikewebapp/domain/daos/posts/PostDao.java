@@ -238,6 +238,28 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public void increasePostLikes(int postId){
+        final String sql = "UPDATE post SET likes = likes + 1 WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, postId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void decreasePostLikes(int postId){
+        final String sql = "UPDATE post SET likes = likes - 1 WHERE id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, postId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private Post getPostFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user_id");

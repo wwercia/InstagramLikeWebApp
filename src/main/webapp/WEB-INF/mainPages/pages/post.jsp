@@ -41,11 +41,25 @@
                     <c:if test="${not empty requestScope.post.location and requestScope.post.location != 'null'}">
                         <p class="location">Location: ${requestScope.post.location}</p>
                     </c:if>
+
+                    <form id="likesForm" action="${pageContext.request.contextPath}/like" method="post">
+                        <c:if test="${not requestScope.isPostLiked}">
+                            <img src="${pageContext.request.contextPath}/images/icons/heart%20icon.png" alt="not liked post heart icon"
+                                 style="cursor:pointer"
+                                 onclick="document.getElementById('likesForm').submit();">
+                        </c:if>
+                        <c:if test="${requestScope.isPostLiked}">
+                            <img src="${pageContext.request.contextPath}/images/icons/liked%20heart%20icon.png" alt="liked post heart icon
+                                 style="cursor:pointer"
+                                 onclick="document.getElementById('likesForm').submit();">
+                        </c:if>
+                        <input type="hidden" name="imageName" value="${requestScope.post.imageName}" />
+                    </form>
+
                     <p>${requestScope.post.likes} likes</p>
                 </div>
 
             </main>
-
 
         </div>
     </body>

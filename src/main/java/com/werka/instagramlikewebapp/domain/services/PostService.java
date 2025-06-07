@@ -3,6 +3,7 @@ package com.werka.instagramlikewebapp.domain.services;
 import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.daos.posts.PostDao;
+import com.werka.instagramlikewebapp.domain.daos.posts.PostLikeDao;
 import com.werka.instagramlikewebapp.domain.daos.posts.SavedPostDao;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class PostService {
 
     private PostDao postDao = new PostDao();
     private SavedPostDao savedPostDao = new SavedPostDao();
+    private PostLikeDao postLikeDao = new PostLikeDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -56,6 +58,23 @@ public class PostService {
     public void removePostFromUserSavedPosts(String imageName) {
         int postID = postDao.getPostIdByImageName(imageName);
         savedPostDao.removePostFromUserSavedPosts(postID);
+    }
+
+    public boolean isPostLikedByUser(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        return postLikeDao.isPostLikedByUser(postID);
+    }
+
+    public void likePost(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        postLikeDao.saveLikeToPostLikes(postID);
+        postDao.increasePostLikes(postID);
+    }
+
+    public void dislikePost(String imageName) {
+        int postID = postDao.getPostIdByImageName(imageName);
+        postLikeDao.removeLikeFromPostLikes(postID);
+        postDao.decreasePostLikes(postID);
     }
 
 }

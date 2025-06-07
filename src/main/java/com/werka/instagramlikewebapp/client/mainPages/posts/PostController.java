@@ -22,6 +22,8 @@ public class PostController extends HttpServlet {
         req.setAttribute("post", post);
         boolean isPostSavedInUserSavedPosts = postService.isPostSavedInUserSavedPosts(imageName);
         req.setAttribute("isPostSaved", isPostSavedInUserSavedPosts);
+        boolean isPostLiked = postService.isPostLikedByUser(imageName);
+        req.setAttribute("isPostLiked", isPostLiked);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
     }
 }
