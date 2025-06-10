@@ -1,10 +1,8 @@
 package com.werka.instagramlikewebapp.domain.services;
 
 import com.werka.instagramlikewebapp.config.DataHelper;
-import com.werka.instagramlikewebapp.domain.daos.posts.Post;
-import com.werka.instagramlikewebapp.domain.daos.posts.PostDao;
-import com.werka.instagramlikewebapp.domain.daos.posts.PostLikeDao;
-import com.werka.instagramlikewebapp.domain.daos.posts.SavedPostDao;
+import com.werka.instagramlikewebapp.domain.api.CommentDto;
+import com.werka.instagramlikewebapp.domain.daos.posts.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +12,7 @@ public class PostService {
     private PostDao postDao = new PostDao();
     private SavedPostDao savedPostDao = new SavedPostDao();
     private PostLikeDao postLikeDao = new PostLikeDao();
+    private CommentDao commentDao = new CommentDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -75,6 +74,16 @@ public class PostService {
         int postID = postDao.getPostIdByImageName(imageName);
         postLikeDao.removeLikeFromPostLikes(postID);
         postDao.decreasePostLikes(postID);
+    }
+
+    public void addComment(String imageName, String comment) {
+        int postId = postDao.getPostIdByImageName(imageName);
+        commentDao.saveComment(postId, comment);
+    }
+
+    public List<Comment> getComments(String imageName) {
+        int postId = postDao.getPostIdByImageName(imageName);
+        return commentDao.getCommentsByPostId(postId);
     }
 
 }

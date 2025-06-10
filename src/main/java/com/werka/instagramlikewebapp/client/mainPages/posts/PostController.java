@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.client.mainPages.posts;
 
+import com.werka.instagramlikewebapp.domain.daos.posts.Comment;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/post")
 public class PostController extends HttpServlet {
@@ -24,6 +26,8 @@ public class PostController extends HttpServlet {
         req.setAttribute("isPostSaved", isPostSavedInUserSavedPosts);
         boolean isPostLiked = postService.isPostLikedByUser(imageName);
         req.setAttribute("isPostLiked", isPostLiked);
+        List<Comment> comments = postService.getComments(imageName);
+        req.setAttribute("comments", comments);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
     }
 }

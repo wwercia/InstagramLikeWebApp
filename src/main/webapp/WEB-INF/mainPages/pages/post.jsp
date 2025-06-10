@@ -49,12 +49,27 @@
                                  onclick="document.getElementById('likesForm').submit();">
                         </c:if>
                         <c:if test="${requestScope.isPostLiked}">
-                            <img src="${pageContext.request.contextPath}/images/icons/liked%20heart%20icon.png" alt="liked post heart icon
+                            <img src="${pageContext.request.contextPath}/images/icons/liked%20heart%20icon.png" alt="liked post heart icon"
                                  style="cursor:pointer"
                                  onclick="document.getElementById('likesForm').submit();">
                         </c:if>
                         <input type="hidden" name="imageName" value="${requestScope.post.imageName}" />
                     </form>
+
+                    <form action="${pageContext.request.contextPath}/comment" method="post">
+                        <label for="comment">Comment</label>
+                        <textarea id="comment" name="comment" rows="3" maxlength="50" required placeholder="Your comment..."></textarea>
+                        <input type="hidden" name="imageName" value="${requestScope.post.imageName}" />
+                        <button>Submit</button>
+                    </form>
+
+                    <c:forEach var="comment" items="${requestScope.comments}">
+                        <div class="comment">
+                            <p>${comment.username}</p>
+                            <p>${comment.comment}</p>
+                        </div>
+                    </c:forEach>
+
 
                     <p>${requestScope.post.likes} likes</p>
                 </div>
