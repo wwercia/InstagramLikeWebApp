@@ -13,16 +13,16 @@ public class ProfileService {
         return userProfileDao.getUserProfileById(userId, userDao.getUsernameById(userId));
     }
 
-    public void updateBio(String bio) {
-        userProfileDao.updateBio(bio);
+    public void updateBio(String bio, int userId) {
+        userProfileDao.updateBio(bio, userId);
     }
 
-    public void updateUsername(String username) {
-        userDao.updateUsername(username);
+    public void updateUsername(String username, int userId) {
+        userDao.updateUsername(username, userId);
     }
 
-    public void saveNewProfileImage(String imageName) {
-        userProfileDao.saveNewProfileImage(imageName);
+    public void saveNewProfileImage(String imageName, int userId) {
+        userProfileDao.saveNewProfileImage(imageName, userId);
     }
 
 }

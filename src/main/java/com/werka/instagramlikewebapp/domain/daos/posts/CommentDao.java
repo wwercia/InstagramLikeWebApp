@@ -1,6 +1,5 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.Connection;
@@ -12,12 +11,12 @@ import java.util.List;
 
 public class CommentDao extends BaseDao {
 
-    public void saveComment(int postId, String comment) {
+    public void saveComment(int postId, String comment, String username) {
         String sql = "INSERT INTO post_comment (post_id, username, comment) VALUES (?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, postId);
-            statement.setString(2, DataHelper.getUser().getUsername());
+            statement.setString(2, username);
             statement.setString(3, comment);
             statement.executeUpdate();
         } catch (SQLException e) {

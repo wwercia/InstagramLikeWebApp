@@ -1,6 +1,5 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
@@ -13,11 +12,11 @@ import java.util.stream.Collectors;
 public class PostDao extends BaseDao {
 
     public Integer savePost(int userId, String imageName, String description, String location, int likes, String imageExtension) {
-
         final String sql = "INSERT INTO post (user_id, image_name, description, location, likes, image_extension) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
+            System.out.println(userId);
             statement.setString(2, imageName);
             statement.setString(3, description);
             statement.setString(4, location);
@@ -227,11 +226,11 @@ public class PostDao extends BaseDao {
         }
     }
 
-    public void increasePostsQuantity(){
+    public void increasePostsQuantity(int userId){
         final String sql = "UPDATE user_profile SET posts_quantity = posts_quantity + 1 WHERE user_id = ?;";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, DataHelper.getUser().getId());
+            statement.setInt(1,userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

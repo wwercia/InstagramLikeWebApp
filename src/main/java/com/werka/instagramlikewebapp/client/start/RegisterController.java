@@ -1,11 +1,13 @@
 package com.werka.instagramlikewebapp.client.start;
 
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.RegisterService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -30,7 +32,11 @@ public class RegisterController extends HttpServlet {
         String lastName = req.getParameter("lastName");
         Integer age = Integer.parseInt(req.getParameter("age"));
 
-        if(registerService.register(email, password, username, firstName, lastName, age)) {
+        User user = registerService.register(email, password, username, firstName, lastName, age);
+
+        if(user != null) {
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user);
             req.getRequestDispatcher("/WEB-INF/mainPages/pages/home.jsp").forward(req, resp);
         } else {
             req.setAttribute("information", "It looks like you already have an account with us, please log in.");

@@ -1,6 +1,7 @@
 package com.werka.instagramlikewebapp.client.mainPages.profile;
 
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,8 +20,9 @@ public class TaggedController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User currentUser = (User) req.getSession().getAttribute("user");
         req.setAttribute("file", "tagged");
-        List<Post> posts = postService.getUserTaggedPosts();
+        List<Post> posts = postService.getUserTaggedPosts(currentUser.getId());
         Collections.reverse(posts);
         req.setAttribute("taggedPosts", posts);
         req.setAttribute("taggedPostsQuantity", posts.size());

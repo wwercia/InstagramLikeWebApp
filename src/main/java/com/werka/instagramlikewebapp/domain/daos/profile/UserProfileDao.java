@@ -1,6 +1,5 @@
 package com.werka.instagramlikewebapp.domain.daos.profile;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
@@ -37,25 +36,25 @@ public class UserProfileDao extends BaseDao {
         }
     }
 
-    public void updateBio(String bio) {
+    public void updateBio(String bio, int userId) {
         final String sql = "UPDATE user_profile SET `bio` = ? WHERE (`user_id` = ?);";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, bio);
-            statement.setInt(2, DataHelper.getUser().getId());
+            statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void saveNewProfileImage(String imageName) {
+    public void saveNewProfileImage(String imageName, int userId) {
         System.out.println(imageName);
         final String sql = "UPDATE user_profile SET `profile_image_name` = ? WHERE (`user_id` = ?);";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, imageName);
-            statement.setInt(2, DataHelper.getUser().getId());
+            statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

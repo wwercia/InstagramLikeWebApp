@@ -1,7 +1,5 @@
 package com.werka.instagramlikewebapp.domain.services;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
-import com.werka.instagramlikewebapp.domain.api.CommentDto;
 import com.werka.instagramlikewebapp.domain.daos.posts.*;
 
 import java.util.ArrayList;
@@ -20,38 +18,37 @@ public class PostService {
         postDao.changeImageName(newImageName);
         postDao.changeImageExtension(extension, postId);
         postDao.saveCollaborators(postId, collaborators);
-        postDao.increasePostsQuantity();
+        postDao.increasePostsQuantity(userId);
         return newImageName;
     }
 
-
-    public List<Post> getUserPosts() {
-        return postDao.getPostsByUserId(DataHelper.getUser().getId());
+    public List<Post> getUserPosts(int userID) {
+        return postDao.getPostsByUserId(userID);
     }
 
     public Post getPostByImageName(String imageName) {
         return postDao.getPostByImageName(imageName);
     }
 
-    public List<Post> getUserTaggedPosts() {
-        return postDao.getUserTaggedPostsByUserId(DataHelper.getUser().getId());
+    public List<Post> getUserTaggedPosts(int userId) {
+        return postDao.getUserTaggedPostsByUserId(userId);
     }
-    public void savePostToUserSavedPosts(String imageName) {
+    public void savePostToUserSavedPosts(String imageName, int userId) {
         int postID = postDao.getPostIdByImageName(imageName);
-        savedPostDao.savePostToUserSavedPosts(postID);
+        savedPostDao.savePostToUserSavedPosts(postID, userId);
     }
 
-    public List<Post> getUserSavedPosts() {
-        List<Integer> savedPostIds = savedPostDao.getUserSavedPosts();
+    public List<Post> getUserSavedPosts(int userId) {
+        List<Integer> savedPostIds = savedPostDao.getUserSavedPosts(userId);
         if(savedPostIds.isEmpty()) {
             return new ArrayList<>();
         }
         return postDao.getUserSavedPostsByPostIds(savedPostIds);
     }
 
-    public boolean isPostSavedInUserSavedPosts(String imageName) {
+    public boolean isPostSavedInUserSavedPosts(String imageName, int userId) {
         int postID = postDao.getPostIdByImageName(imageName);
-        return savedPostDao.isPostSavedInUserSavedPosts(postID);
+        return savedPostDao.isPostSavedInUserSavedPosts(postID, userId);
     }
 
     public void removePostFromUserSavedPosts(String imageName) {
@@ -59,14 +56,14 @@ public class PostService {
         savedPostDao.removePostFromUserSavedPosts(postID);
     }
 
-    public boolean isPostLikedByUser(String imageName) {
+    public boolean isPostLikedByUser(String imageName, int userId) {
         int postID = postDao.getPostIdByImageName(imageName);
-        return postLikeDao.isPostLikedByUser(postID);
+        return postLikeDao.isPostLikedByUser(postID, userId);
     }
 
-    public void likePost(String imageName) {
+    public void likePost(String imageName, int userId) {
         int postID = postDao.getPostIdByImageName(imageName);
-        postLikeDao.saveLikeToPostLikes(postID);
+        postLikeDao.saveLikeToPostLikes(postID, userId);
         postDao.increasePostLikes(postID);
     }
 
@@ -76,9 +73,9 @@ public class PostService {
         postDao.decreasePostLikes(postID);
     }
 
-    public void addComment(String imageName, String comment) {
+    public void addComment(String imageName, String comment, String username) {
         int postId = postDao.getPostIdByImageName(imageName);
-        commentDao.saveComment(postId, comment);
+        commentDao.saveComment(postId, comment, username);
     }
 
     public List<Comment> getComments(String imageName) {

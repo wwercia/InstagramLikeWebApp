@@ -1,6 +1,5 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.Connection;
@@ -10,11 +9,11 @@ import java.sql.SQLException;
 
 public class PostLikeDao extends BaseDao {
 
-    public boolean isPostLikedByUser(int postId) {
+    public boolean isPostLikedByUser(int postId, int userId) {
         String sql = "SELECT * FROM post_like WHERE user_id = ? AND post_id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, DataHelper.getUser().getId());
+            statement.setInt(1, userId);
             statement.setInt(2, postId);
             try (ResultSet rs = statement.executeQuery()) {
                 return rs.next();
@@ -25,11 +24,11 @@ public class PostLikeDao extends BaseDao {
         }
     }
 
-    public void saveLikeToPostLikes(int postId) {
+    public void saveLikeToPostLikes(int postId, int userId) {
         String sql = "INSERT INTO post_like (user_id, post_id) VALUES (?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, DataHelper.getUser().getId());
+            statement.setInt(1,userId);
             statement.setInt(2, postId);
             statement.executeUpdate();
         } catch (SQLException e) {

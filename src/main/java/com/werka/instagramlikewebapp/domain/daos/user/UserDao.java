@@ -1,13 +1,12 @@
 package com.werka.instagramlikewebapp.domain.daos.user;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
 
 public class UserDao extends BaseDao {
 
-    public int saveUser(String email, String password, String username, String firstName, String lastName, int age) {
+    public User saveUser(String email, String password, String username, String firstName, String lastName, int age) {
         final String sql = "INSERT INTO user (email, password, username, firstName, lastName, age) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -22,13 +21,12 @@ public class UserDao extends BaseDao {
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int userId = generatedKeys.getInt(1);
-                DataHelper.setUser(new User(userId, email, password, username, firstName, lastName, age));
-                return userId;
+                return new User(userId, email, password, username, firstName, lastName, age);
             }
         } catch (SQLException e) {
             throw new RuntimeException();
         }
-        return -1;
+        return null;
     }
 
     private int getUserIdByEmail(String email) {
@@ -57,7 +55,7 @@ public class UserDao extends BaseDao {
 
     }
 
-    public boolean isDataCorrect(String email, String password) {
+    public User getUserIfDataIsCorrect(String email, String password) {
 
         final String sql = "SELECT * FROM user WHERE `email`=? AND password=? ";
         try (Connection connection = getConnection();
@@ -69,6 +67,7 @@ public class UserDao extends BaseDao {
             User user = null;
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
+                System.out.println("id uzytkownika " + id);
                 String emaill = resultSet.getString("email");
                 String passwordd = resultSet.getString("password");
                 String username = resultSet.getString("username");
@@ -79,10 +78,12 @@ public class UserDao extends BaseDao {
             }
 
             if (user != null) {
-                DataHelper.setUser(user);
-                return true;
+                System.out.println("jest dobrze powinn zalogować");
+                System.out.println(user);
+                return user;
             }
-            return false;
+            System.out.println("cos nie tak");
+            return null;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -103,12 +104,12 @@ public class UserDao extends BaseDao {
         }
     }
 
-    public void updateUsername(String username) {
+    public void updateUsername(String username, int userId) {
         final String sql = "UPDATE user SET `username` = ? WHERE (`id` = ?);";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
-            statement.setInt(2, DataHelper.getUser().getId());
+            statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,8 +1,8 @@
 package com.werka.instagramlikewebapp.client.mainPages.profile;
 
-import com.werka.instagramlikewebapp.config.DataHelper;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import com.werka.instagramlikewebapp.domain.services.ProfileService;
 import jakarta.servlet.ServletException;
@@ -23,14 +23,17 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserProfile profileInfo = profileService.getProfileInfo(DataHelper.getUser().getId());
+
+        User currentUser = (User) req.getSession().getAttribute("user");
+
+        UserProfile profileInfo = profileService.getProfileInfo(currentUser.getId());
         req.setAttribute("username", profileInfo.getUsername());
         req.setAttribute("postsQuantity", profileInfo.getPostsQuantity());
         req.setAttribute("followers", profileInfo.getFollowers());
         req.setAttribute("following", profileInfo.getFollowing());
         req.setAttribute("bio", profileInfo.getBio());
         req.setAttribute("profileImageName", profileInfo.getProfileImageName());
-        List<Post> posts = postService.getUserPosts();
+        List<Post> posts = postService.getUserPosts(currentUser.getId());
         Collections.reverse(posts);
         req.setAttribute("posts", posts);
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/profile.jsp").forward(req, resp);

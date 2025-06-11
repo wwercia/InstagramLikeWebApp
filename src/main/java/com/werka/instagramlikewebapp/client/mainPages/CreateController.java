@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.client.mainPages;
 
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -26,6 +27,8 @@ public class CreateController extends HttpServlet  {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        User currentUser = (User) req.getSession().getAttribute("user");
+
         String description = req.getParameter("description");
         String location = req.getParameter("location");
         List<String> collab = new ArrayList<>();
@@ -41,7 +44,7 @@ public class CreateController extends HttpServlet  {
         Part filePart = req.getPart("file");
         String originalFileName = filePart.getSubmittedFileName();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String newImageName = postService.savePostAndCollaborators(1, "blank", description, location, 0, collab, extension);
+        String newImageName = postService.savePostAndCollaborators(currentUser.getId(), "blank", description, location, 0, collab, extension);
         filePart.write("C:\\SharrieUploads\\" + newImageName + extension);
 
         req.setAttribute("imageName", newImageName + extension);

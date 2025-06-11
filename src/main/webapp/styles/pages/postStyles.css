@@ -1,0 +1,216 @@
+/* Główny kontener posta */
+.post {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    width: 90%;
+    max-width: 1000px;
+    height: 70vh;
+    margin: 20px auto;
+    border: 1px solid #dbdbdb;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+/* Obrazek posta */
+.post-image {
+    flex: 1 1 50%;
+    overflow: hidden;
+}
+
+#postImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Sekcja treści */
+.post-content {
+    flex: 1 1 50%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+/* Opis i ikonka zapisu w jednej linii */
+.description-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.description-text {
+    flex-grow: 1;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.icon-form {
+    display: inline-block;
+    margin: 0;
+}
+
+.icon-form button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.icon-form img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.icon-form img:hover {
+    opacity: 0.7;
+}
+
+/* Sekcja lajków */
+.likes-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.like-button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Liczba polubień */
+.likes-count {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Lokacja */
+.location {
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* Formularz komentarza */
+textarea {
+    width: 100%;
+    resize: none;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+/* Sekcja komentarzy */
+.comment-form {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-form label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-form textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 70px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.comment-form textarea:focus {
+    border-color: #3897f0;
+    outline: none;
+    box-shadow: 0 0 5px rgba(56, 151, 240, 0.5);
+}
+
+.comment-form button {
+    align-self: flex-start;
+    padding: 8px 20px;
+    background-color: #3897f0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover {
+    background-color: #2c81d9;
+}
+
+.comments-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 12px;
+    padding-right: 4px;
+    max-height: 100%;
+    min-height: 60px;
+}
+
+.comment {
+    background-color: #f1f1f1;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+
+.comment p:first-child {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.comment p:last-child {
+    margin: 0;
+}
+
+/* Responsywność */
+@media (max-width: 1024px) {
+    .post {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .post-image,
+    .post-content {
+        flex: 1 1 auto;
+        width: 100%;
+        height: auto;
+    }
+
+    #postImage {
+        height: auto;
+        max-height: 400px;
+    }
+
+    .comments-scroll {
+        max-height: 200px;
+    }
+}

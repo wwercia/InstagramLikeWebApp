@@ -1,6 +1,7 @@
 package com.werka.instagramlikewebapp.client.mainPages.profile;
 
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,9 +20,10 @@ public class SavedController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User currentUser = (User) req.getSession().getAttribute("user");
         req.setAttribute("file", "saved");
         req.removeAttribute("posts");
-        List<Post> posts = postService.getUserSavedPosts();
+        List<Post> posts = postService.getUserSavedPosts(currentUser.getId());
         Collections.reverse(posts);
         req.setAttribute("savedPosts", posts);
         req.setAttribute("savedPostsQuantity", posts.size());
