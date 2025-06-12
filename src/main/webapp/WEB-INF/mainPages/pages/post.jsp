@@ -28,6 +28,16 @@
 
                     <div class="post-content">
 
+                        <div class="user-data-container">
+                            <c:if test="${empty requestScope.profileImageName}">
+                                <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/user%20icon.png" alt="profile icon">
+                            </c:if>
+                            <c:if test="${not empty requestScope.profileImageName}">
+                                <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${requestScope.profileImageName}" alt="profile icon">
+                            </c:if>
+                            <p class="username">${requestScope.username}</p>
+                        </div>
+
                         <div class="description-bar">
                             <p class="description-text">${requestScope.post.description}</p>
                             <form id="saveForm" action="${pageContext.request.contextPath}/save" method="get" class="icon-form">

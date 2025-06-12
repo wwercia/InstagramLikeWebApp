@@ -36,6 +36,23 @@
     overflow-y: auto;
 }
 
+.user-data-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-profile-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    margin-top: 3%;
+    font-size: 20px;
+}
+
 /* Opis i ikonka zapisu w jednej linii */
 .description-bar {
     display: flex;

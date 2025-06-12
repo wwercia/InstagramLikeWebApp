@@ -25,7 +25,7 @@
                     <div class="top-profile-info">
 
                         <c:if test="${empty requestScope.profileImageName}">
-                            <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/create%20icon.png" alt="profile icon">
+                            <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/user%20icon.png" alt="profile icon">
                         </c:if>
 
                         <c:if test="${not empty requestScope.profileImageName}">
