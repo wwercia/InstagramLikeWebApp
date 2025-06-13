@@ -34,9 +34,28 @@
 
                         <p class="username">${requestScope.username}</p>
 
-                        <form action="${pageContext.request.contextPath}/profile/editProfile" method="get">
-                            <button type="submit">Edit profile</button>
-                        </form>
+                        <c:if test="${requestScope.isThisProfileMine}">
+                            <form action="${pageContext.request.contextPath}/profile/editProfile" method="get">
+                                <button type="submit">Edit profile</button>
+                            </form>
+                        </c:if>
+
+                        <c:if test="${not requestScope.isThisProfileMine}">
+                            <c:if test="${not requestScope.isUserFollowed}">
+                                <form action="${pageContext.request.contextPath}/profile/follow" method="post">
+                                    <input type="hidden" name="followed_id" value="${requestScope.userId}">
+                                    <button id="unfollowButton" type="submit">Unfollow</button>
+                                </form>
+                            </c:if>
+                            <c:if test="${requestScope.isUserFollowed}">
+                                <form action="${pageContext.request.contextPath}/profile/follow" method="post">
+                                    <input type="hidden" name="followed_id" value="${requestScope.userId}">
+                                    <button type="submit">Follow</button>
+                                </form>
+                            </c:if>
+
+                        </c:if>
+
                     </div>
                     <div class="bottom-profile-info">
                         <p>${requestScope.postsQuantity} posts</p>
@@ -50,12 +69,15 @@
 
                     <div class="photos-options">
                         <form action="${pageContext.request.contextPath}/profile/posts" method="get">
+                            <input type="hidden" name="username" value="${requestScope.username}" />
                             <button class="option-button" type="submit">Posts</button>
                         </form>
                         <form action="${pageContext.request.contextPath}/profile/saved" method="get">
+                            <input type="hidden" name="username" value="${requestScope.username}" />
                             <button class="option-button" type="submit">Saved</button>
                         </form>
                         <form action="${pageContext.request.contextPath}/profile/tagged" method="get">
+                            <input type="hidden" name="username" value="${requestScope.username}" />
                             <button class="option-button" type="submit">Tagged</button>
                         </form>
                     </div>

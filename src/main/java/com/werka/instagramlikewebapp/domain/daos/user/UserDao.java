@@ -35,10 +35,28 @@ public class UserDao extends BaseDao {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.getInt("id");
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return 0;
+    }
+
+    public int getUserIdByUserName(String username) {
+        final String sql = "SELECT id FROM user WHERE `username` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     public boolean isEmailFree(String email) {

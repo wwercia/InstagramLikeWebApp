@@ -35,7 +35,9 @@
                             <c:if test="${not empty requestScope.profileImageName}">
                                 <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${requestScope.profileImageName}" alt="profile icon">
                             </c:if>
-                            <p class="username">${requestScope.username}</p>
+                            <a href="${pageContext.request.contextPath}/profile?username=${requestScope.username}" class="username">
+                                ${requestScope.username}
+                            </a>
                         </div>
 
                         <div class="description-bar">
