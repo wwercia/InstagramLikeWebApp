@@ -61,6 +61,28 @@ public class UserProfileDao extends BaseDao {
         }
     }
 
+    public void increaseFollowersQuantity(int userId) {
+        final String sql = "UPDATE user_profile SET followers = followers + 1 WHERE user_id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void decreaseFollowersQuantity(int userId) {
+        final String sql = "UPDATE user_profile SET followers = followers - 1 WHERE user_id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private UserProfile getUserProfileFromResultSet(ResultSet resultSet, String username) throws SQLException {
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user_id");

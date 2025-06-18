@@ -4,13 +4,13 @@ public class Comment {
 
     private int id;
     private int postId;
-    private String username;
+    private int userId;
     private String comment;
 
-    public Comment(int id, int postId, String username, String content) {
+    public Comment(int id, int postId, int userId, String content) {
         this.id = id;
         this.postId = postId;
-        this.username = username;
+        this.userId = userId;
         this.comment = content;
     }
 
@@ -30,12 +30,12 @@ public class Comment {
         this.postId = postId;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getComment() {

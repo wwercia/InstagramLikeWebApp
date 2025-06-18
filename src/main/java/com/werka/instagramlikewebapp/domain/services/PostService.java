@@ -1,16 +1,20 @@
 package com.werka.instagramlikewebapp.domain.services;
 
+import com.werka.instagramlikewebapp.domain.api.CommentDto;
 import com.werka.instagramlikewebapp.domain.daos.posts.*;
+import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PostService {
 
-    private PostDao postDao = new PostDao();
-    private SavedPostDao savedPostDao = new SavedPostDao();
-    private PostLikeDao postLikeDao = new PostLikeDao();
-    private CommentDao commentDao = new CommentDao();
+    private final PostDao postDao = new PostDao();
+    private final SavedPostDao savedPostDao = new SavedPostDao();
+    private final PostLikeDao postLikeDao = new PostLikeDao();
+    private final CommentDao commentDao = new CommentDao();
+    private final UserDao userDao = new UserDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -73,14 +77,32 @@ public class PostService {
         postDao.decreasePostLikes(postID);
     }
 
-    public void addComment(String imageName, String comment, String username) {
+    public void addComment(String imageName, String comment, int userId) {
         int postId = postDao.getPostIdByImageName(imageName);
-        commentDao.saveComment(postId, comment, username);
+        commentDao.saveComment(postId, comment, userId);
     }
 
-    public List<Comment> getComments(String imageName) {
-        int postId = postDao.getPostIdByImageName(imageName);
-        return commentDao.getCommentsByPostId(postId);
+    public void deleteComment(int commentId) {
+        commentDao.removeComment(commentId);
     }
+
+    public List<CommentDto> getComments(String imageName, int userId) {
+        int postId = postDao.getPostIdByImageName(imageName);
+
+        List<Comment> comments = commentDao.getCommentsByPostId(postId);
+        List<CommentDto> readyComments = new ArrayList<>();
+
+        for(Comment comment : comments) {
+            readyComments.add(new CommentDto(
+                    comment.getId(),
+                    userDao.getUsernameById(comment.getUserId()),
+                    comment.getComment(),
+                    (comment.getUserId() == userId)
+            ));
+        }
+
+        return readyComments;
+    }
+
 
 }

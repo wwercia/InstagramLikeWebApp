@@ -7,7 +7,6 @@
     </head>
     <body>
 
-
         <div class="main-container">
 
             <img src="${pageContext.request.contextPath}/images/sharrie%20main%20image.png" alt="sharrie image">

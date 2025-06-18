@@ -18,8 +18,15 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
+
         // Ścieżki bez autoryzacji
-        if (path.equals("/registration") || path.equals("/") || path.equals("/login")) {
+        if (path.startsWith("/styles/") ||
+                path.startsWith("/scripts/") ||
+                path.startsWith("/images/") ||
+                path.equals("/") ||
+                path.equals("/login") ||
+                path.equals("/registration")) {
+
             chain.doFilter(servletRequest, servletResponse);
             return;
         }

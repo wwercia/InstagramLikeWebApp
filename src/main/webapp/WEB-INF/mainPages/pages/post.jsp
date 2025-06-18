@@ -91,8 +91,20 @@
                         <div class="comments-scroll">
                             <c:forEach var="comment" items="${requestScope.comments}">
                                 <div class="comment">
-                                    <p>${comment.username}</p>
+                                    <a href="${pageContext.request.contextPath}/profile?username=${comment.username}" class="usernameComment">
+                                            ${comment.username}
+                                    </a>
                                     <p>${comment.comment}</p>
+                                    <c:if test="${comment.commentMine}">
+                                        <form action="${pageContext.request.contextPath}/editComment" method="post" class="edit-comment-form">
+                                            <input type="hidden" name="commentId" value="${comment.id}" />
+                                            <button>Edit</button>
+                                        </form>
+                                        <form action="${pageContext.request.contextPath}/deleteComment" method="post" class="delete-comment-form">
+                                            <input type="hidden" name="commentId" value="${comment.id}" />
+                                            <button>Delete</button>
+                                        </form>
+                                    </c:if>
                                 </div>
                             </c:forEach>
                         </div>
