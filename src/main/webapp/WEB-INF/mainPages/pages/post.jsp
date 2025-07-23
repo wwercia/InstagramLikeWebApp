@@ -38,6 +38,7 @@
                             <a href="${pageContext.request.contextPath}/profile?username=${requestScope.username}" class="username">
                                 ${requestScope.username}
                             </a>
+                            <p class="addedAt">${requestScope.addedAt}</p>
                         </div>
 
                         <div class="description-bar">
@@ -103,16 +104,6 @@
 
                                     <c:if test="${comment.commentMine}">
                                         <div class="comment-actions">
-                                            <form action="${pageContext.request.contextPath}/editComment" method="post" class="edit-comment-form">
-                                                <input type="hidden" name="commentId" value="${comment.id}" />
-                                                <button class="icon-btn" title="Edit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil">
-                                                        <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                                        <path d="m15 5 4 4"/>
-                                                    </svg>
-                                                </button>
-                                            </form>
                                             <form action="${pageContext.request.contextPath}/deleteComment" method="post" class="delete-comment-form">
                                                 <input type="hidden" name="commentId" value="${comment.id}"/>
                                                 <button class="icon-btn" title="Delete">

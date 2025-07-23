@@ -58,6 +58,14 @@ a {
     font-size: 20px;
 }
 
+.addedAt {
+    margin-top: 4%;
+    margin-left: 50%;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.2;
+}
+
 /* Opis i ikonka zapisu w jednej linii */
 .description-bar {
     display: flex;

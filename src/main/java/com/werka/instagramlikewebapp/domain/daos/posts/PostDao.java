@@ -3,6 +3,7 @@ package com.werka.instagramlikewebapp.domain.daos.posts;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -266,8 +267,10 @@ public class PostDao extends BaseDao {
         String description = resultSet.getString("description");
         String location = resultSet.getString("location");
         int likes = resultSet.getInt("likes");
+        Timestamp timestamp = resultSet.getTimestamp("date");
+        LocalDateTime addedAt = timestamp.toLocalDateTime();
         String imageExtension = resultSet.getString("image_extension");
-        return new Post(id, userId, imageName, description, location, likes, imageExtension);
+        return new Post(id, userId, imageName, description, location, likes, addedAt, imageExtension);
     }
 
 }

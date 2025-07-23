@@ -1,6 +1,6 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class Post {
 
@@ -10,15 +10,17 @@ public class Post {
     private String description;
     private String location;
     private int likes;
+    private LocalDateTime addedAt;
     private String extension;
 
-    public Post(int id, int userId, String imageName, String description, String location, int likes, String extension) {
+    public Post(int id, int userId, String imageName, String description, String location, int likes, LocalDateTime addedAt, String extension) {
         this.id = id;
         this.userId = userId;
         this.imageName = imageName;
         this.location = location;
         this.description = description;
         this.likes = likes;
+        this.addedAt = addedAt;
         this.extension = extension;
     }
 
@@ -70,6 +72,14 @@ public class Post {
         this.userId = userId;
     }
 
+    public LocalDateTime getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+        this.addedAt = addedAt;
+    }
+
     public String getExtension() {
         return extension;
     }
@@ -87,6 +97,8 @@ public class Post {
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", likes=" + likes +
+                ", addedAt=" + addedAt +
+                ", extension='" + extension + '\'' +
                 '}';
     }
 }

@@ -14,7 +14,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet("/post")
 public class PostController extends HttpServlet {
@@ -43,6 +48,11 @@ public class PostController extends HttpServlet {
 
         List<CommentDto> comments = postService.getComments(imageName, currentUser.getId());
         req.setAttribute("comments", comments);
+
+        LocalDateTime addedAt = post.getAddedAt();
+        String month = addedAt.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        String resultDate = String.format("%d %s %d", addedAt.getDayOfMonth(), month, addedAt.getYear());
+        req.setAttribute("addedAt", resultDate);
 
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
     }
