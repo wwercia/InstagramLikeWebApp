@@ -26,6 +26,10 @@ public class PostService {
         return newImageName;
     }
 
+    public void deletePost(int postId) {
+        postDao.deletePost(postId);
+    }
+
     public List<Post> getUserPosts(int userID) {
         return postDao.getPostsByUserId(userID);
     }

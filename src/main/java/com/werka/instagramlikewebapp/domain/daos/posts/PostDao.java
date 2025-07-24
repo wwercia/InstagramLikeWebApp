@@ -39,6 +39,18 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public void deletePost(int postId) {
+        String sql = "DELETE FROM post WHERE id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, postId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy usuwaniu posta", e);
+        }
+    }
+
     public void saveCollaborators(int postId, List<String> collaborators) {
         List<Integer> userIds = getUserIdsByUsernames(collaborators);
         String sql = "INSERT INTO post_collaborators (post_id, user_collaborator_id) VALUES (?, ?)";

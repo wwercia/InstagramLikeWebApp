@@ -58,12 +58,27 @@ a {
     font-size: 20px;
 }
 
-.addedAt {
+.addedAt1 {
     margin-top: 4%;
-    margin-left: 50%;
+    margin-left: 40%;
     font-size: 13px;
     color: #888;
     line-height: 1.2;
+}
+
+.addedAt2 {
+    margin-top: 4%;
+    margin-left: 55%;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.2;
+}
+
+.delete-post-form{
+    margin-top: 2%;
+    display: block;
+    margin-left: auto;
+    width: fit-content;
 }
 
 /* Opis i ikonka zapisu w jednej linii */

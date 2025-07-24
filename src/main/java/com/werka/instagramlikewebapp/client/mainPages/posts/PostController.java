@@ -54,6 +54,12 @@ public class PostController extends HttpServlet {
         String resultDate = String.format("%d %s %d", addedAt.getDayOfMonth(), month, addedAt.getYear());
         req.setAttribute("addedAt", resultDate);
 
+        if(post.getUserId() == currentUser.getId()) {
+            req.setAttribute("isPostUsers", true);
+        }else {
+            req.setAttribute("isPostUsers", false);
+        }
+
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/post.jsp").forward(req, resp);
     }
 }
