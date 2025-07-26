@@ -85,7 +85,6 @@ public class UserDao extends BaseDao {
             User user = null;
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                System.out.println("id uzytkownika " + id);
                 String emaill = resultSet.getString("email");
                 String passwordd = resultSet.getString("password");
                 String username = resultSet.getString("username");
@@ -96,8 +95,6 @@ public class UserDao extends BaseDao {
             }
 
             if (user != null) {
-                System.out.println("jest dobrze powinn zalogować");
-                System.out.println(user);
                 return user;
             }
             System.out.println("cos nie tak");

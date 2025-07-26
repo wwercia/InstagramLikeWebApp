@@ -114,9 +114,12 @@
 
                                 <div class="comment">
                                     <div class="comment-body">
-                                        <a href="${pageContext.request.contextPath}/profile?username=${comment.username}" class="usernameComment">
-                                                ${comment.username}
-                                        </a>
+                                        <div class="comment-info">
+                                            <a href="${pageContext.request.contextPath}/profile?username=${comment.username}" class="usernameComment">
+                                                    ${comment.username}
+                                            </a>
+                                            <p class="comment-date">${comment.date}</p>
+                                        </div>
                                         <div class="comment-text">
                                                 ${comment.comment}
                                         </div>

@@ -31,7 +31,6 @@ public class LoginController  extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/home");
-            //req.getRequestDispatcher("/WEB-INF/mainPages/pages/home.jsp").forward(req, resp);
         }else {
             req.setAttribute("information", "Incorrect data");
             req.getRequestDispatcher("/WEB-INF/start/index.jsp").forward(req, resp);

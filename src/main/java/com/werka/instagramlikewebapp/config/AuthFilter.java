@@ -36,7 +36,6 @@ public class AuthFilter implements Filter {
 
         if (user == null) {
             response.sendRedirect( request.getContextPath() + "/");
-            //request.getRequestDispatcher("/WEB-INF/start/index.jsp").forward(request, response);
             return;
         }
 

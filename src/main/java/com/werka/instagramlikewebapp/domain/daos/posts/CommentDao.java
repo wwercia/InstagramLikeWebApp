@@ -2,10 +2,8 @@ package com.werka.instagramlikewebapp.domain.daos.posts;
 
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +57,9 @@ public class CommentDao extends BaseDao {
         int postId = resultSet.getInt("post_id");
         int userId = resultSet.getInt("user_id");
         String comment = resultSet.getString("comment");
-        return new Comment(id, postId, userId, comment);
+        Timestamp timestamp = resultSet.getTimestamp("date");
+        LocalDateTime addedAt = timestamp.toLocalDateTime();
+        return new Comment(id, postId, userId, comment, addedAt);
     }
 
 }

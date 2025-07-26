@@ -101,7 +101,8 @@ public class PostService {
                     comment.getId(),
                     userDao.getUsernameById(comment.getUserId()),
                     comment.getComment(),
-                    (comment.getUserId() == userId)
+                    (comment.getUserId() == userId),
+                    String.format("%d %s %d", comment.getAddedAt().getDayOfMonth(), comment.getAddedAt().getMonth().name(), comment.getAddedAt().getYear())
             ));
         }
 

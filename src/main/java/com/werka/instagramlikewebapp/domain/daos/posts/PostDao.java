@@ -17,11 +17,9 @@ public class PostDao extends BaseDao {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
-            System.out.println(userId);
             statement.setString(2, imageName);
             statement.setString(3, description);
             statement.setString(4, location);
-            System.out.println(location);
             statement.setInt(5, likes);
             statement.setString(6, imageExtension);
 

@@ -14,16 +14,12 @@ public class HomeController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("w HomeController");
-
         User currentUser = (User) req.getSession().getAttribute("user");
         if (currentUser != null) {
             req.getRequestDispatcher("/WEB-INF/mainPages/pages/home.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("/WEB-INF/start/index.jsp").forward(req, resp);
         }
-
     }
 
 }

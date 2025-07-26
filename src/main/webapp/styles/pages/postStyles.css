@@ -246,10 +246,22 @@ textarea {
     color: #333;
 }
 
+.comment-info {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
 .usernameComment {
     font-weight: bold;
     color: #173d61;
     text-decoration: none;
+}
+
+.comment-date {
+    margin-left: 6%;
+    font-size: 11px;
+    color: #888;
 }
 
 .usernameComment:hover {

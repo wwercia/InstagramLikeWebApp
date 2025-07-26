@@ -1,17 +1,21 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
+import java.time.LocalDateTime;
+
 public class Comment {
 
     private int id;
     private int postId;
     private int userId;
     private String comment;
+    private LocalDateTime addedAt;
 
-    public Comment(int id, int postId, int userId, String content) {
+    public Comment(int id, int postId, int userId, String content, LocalDateTime addedAt) {
         this.id = id;
         this.postId = postId;
         this.userId = userId;
         this.comment = content;
+        this.addedAt = addedAt;
     }
 
     public int getId() {
@@ -44,5 +48,13 @@ public class Comment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public LocalDateTime getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+        this.addedAt = addedAt;
     }
 }

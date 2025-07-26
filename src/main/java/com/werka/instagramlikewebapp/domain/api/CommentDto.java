@@ -6,12 +6,14 @@ public class CommentDto {
     private String username;
     private String comment;
     private boolean commentMine;
+    private String date;
 
-    public CommentDto(int id, String username, String comment, boolean commentMine) {
+    public CommentDto(int id, String username, String comment, boolean commentMine, String date) {
         this.id = id;
         this.username = username;
         this.comment = comment;
         this.commentMine = commentMine;
+        this.date = date;
     }
 
     public int getId() {
@@ -44,5 +46,13 @@ public class CommentDto {
 
     public void setCommentMine(boolean commentMine) {
         this.commentMine = commentMine;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
