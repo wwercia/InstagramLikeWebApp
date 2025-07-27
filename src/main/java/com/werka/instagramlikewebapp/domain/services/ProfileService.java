@@ -1,9 +1,14 @@
 package com.werka.instagramlikewebapp.domain.services;
 
+import com.werka.instagramlikewebapp.domain.api.FollowerDto;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserFollowDao;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
+import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileService {
 
@@ -44,6 +49,16 @@ public class ProfileService {
     public void unfollow(int followerId, int followedId) {
         userFollowDao.unfollow(followerId, followedId);
         userProfileDao.decreaseFollowersQuantity(followedId);
+    }
+
+    public List<FollowerDto> getFollowers(int userId) {
+        List<Integer> ids = userFollowDao.getFollowersIds(userId);
+        List<FollowerDto> followers = new ArrayList<>();
+        for(int id : ids) {
+            String username = userDao.getUsernameById(id);
+            followers.add(new FollowerDto(id, username, "profile" + id));
+        }
+        return followers;
     }
 
 }

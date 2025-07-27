@@ -1,12 +1,4 @@
 
-main {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: #e9eff9;
-}
-
-
 .profile-information {
     height: 22%;
     width: 100%;
@@ -41,13 +33,6 @@ main {
     font-weight: bold;
 }
 
-.followers-button {
-    all: unset;
-    cursor: pointer;
-    color: #000000;
-    text-decoration: none;
-}
-
 .top-profile-info form  {
     margin-left: 15%;
 }
@@ -66,8 +51,6 @@ main {
 .top-profile-info form #unfollowButton {
     background-color: #7098d3;
 }
-
-
 
 .bottom-profile-info {
     display: flex;
@@ -91,54 +74,56 @@ main {
     color: #4e4c4c;
 }
 
-
-.bottom-box {
-    width: 85%;
-    align-self: center;
-    height: 70%;
-}
-
-.photos-options{
-    display: flex;
-    flex-direction: row;
-    gap: 10%;
-    height: auto;
-    width: 100%;
-    justify-content: center;
-}
-
-.option-button {
-    background-color: #446ba5;
-    color: white;
-    border: none;
-    padding: 0.9rem 1.2rem;
-    border-radius: 8px;
-    font-size: 16px;
+.followers-button {
+    all: unset;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    color: #000000;
+    text-decoration: none;
 }
 
-.photos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 3%;
-    width: 65%;
-    justify-self: center;
-    max-height: 60vh;
-    overflow-y: auto;
-    border-radius: 15px;
-    padding: 10px;
-}
 
-.containerForNoPostsText {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 35vh;
+
+.followers-section {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8%;
 }
 
-.noPostsText {
-    text-align: center;
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.followers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+}
+
+.follower-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.follower-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.follower-name {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
 }

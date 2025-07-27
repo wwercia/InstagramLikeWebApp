@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserFollowDao extends BaseDao {
 
@@ -47,6 +49,23 @@ public class UserFollowDao extends BaseDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Błąd w unfollow()", e);
+        }
+    }
+
+    public List<Integer> getFollowersIds(int userId) {
+        List<Integer> followersIds = new ArrayList<>();
+        final String sql = "SELECT * FROM user_follow WHERE `followed_id` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                followersIds.add(resultSet.getInt("follower_id"));
+            }
+            return followersIds;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu id followerów po id użytkownika", e);
         }
     }
 
