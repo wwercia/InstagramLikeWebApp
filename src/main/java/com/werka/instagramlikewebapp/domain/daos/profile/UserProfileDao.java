@@ -19,6 +19,19 @@ public class UserProfileDao extends BaseDao {
         }
     }
 
+    public String getProfileImageNameById(int userId) {
+        final String sql = "SELECT * FROM user_profile WHERE user_id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getString("profile_image_name");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void saveNewProfile(int userId) {
         final String sql = "INSERT INTO user_profile (user_id, posts_quantity, followers, following, bio, profile_image_name) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
@@ -74,6 +87,28 @@ public class UserProfileDao extends BaseDao {
 
     public void decreaseFollowersQuantity(int userId) {
         final String sql = "UPDATE user_profile SET followers = followers - 1 WHERE user_id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void increaseFollowingQuantity(int userId) {
+        final String sql = "UPDATE user_profile SET following = following + 1 WHERE user_id = ?;";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void decreaseFollowingQuantity(int userId) {
+        final String sql = "UPDATE user_profile SET following = following - 1 WHERE user_id = ?;";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);

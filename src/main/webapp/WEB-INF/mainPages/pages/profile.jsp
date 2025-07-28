@@ -60,8 +60,9 @@
                     <div class="bottom-profile-info">
                         <p>${requestScope.postsQuantity} posts</p>
 
-                        <form action="${pageContext.request.contextPath}/profile/followers?username=${requestScope.username}" method="get" class="followers">
-                            <input type="hidden" name="userId" value="${requestScope.userId}">
+                        <form action="${pageContext.request.contextPath}/profile/followers" method="get" class="followers">
+
+                            <input type="hidden" name="username" value="${requestScope.username}">
                             <button type="submit" class="followers-button">${requestScope.followersQuantity} followers</button>
                         </form>
 
@@ -69,6 +70,7 @@
                         <p style="white-space: pre-line;">${requestScope.bio}</p>
                     </div>
                 </div>
+
 
                 <div class="bottom-box">
 

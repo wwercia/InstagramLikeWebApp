@@ -88,7 +88,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 8%;
+    padding-top: 5%;
 }
 
 .section-title {
@@ -98,14 +98,7 @@
     margin-bottom: 20px;
 }
 
-.followers-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    padding: 0 20px;
-}
+
 
 .follower-row {
     display: flex;
@@ -126,4 +119,20 @@
     font-size: 16px;
     color: #333;
     margin: 0;
+    text-decoration: none;
+}
+
+
+
+.followers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
 }

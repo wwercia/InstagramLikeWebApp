@@ -22,18 +22,22 @@
 
                 <div class="profile-information">
                     <div class="top-profile-info">
+
                         <c:if test="${empty requestScope.profileImageName}">
                             <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/user%20icon.png" alt="profile icon">
                         </c:if>
+
                         <c:if test="${not empty requestScope.profileImageName}">
                             <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${requestScope.profileImageName}" alt="profile icon">
                         </c:if>
                         <p class="username">${requestScope.username}</p>
+
                         <c:if test="${requestScope.isThisProfileMine}">
                             <form action="${pageContext.request.contextPath}/profile/editProfile" method="get">
                                 <button type="submit">Edit profile</button>
                             </form>
                         </c:if>
+
                         <c:if test="${not requestScope.isThisProfileMine}">
                             <c:if test="${not requestScope.isUserFollowed}">
                                 <form action="${pageContext.request.contextPath}/profile/follow" method="post">
@@ -41,6 +45,7 @@
                                     <button id="unfollowButton" type="submit">Unfollow</button>
                                 </form>
                             </c:if>
+
                             <c:if test="${requestScope.isUserFollowed}">
                                 <form action="${pageContext.request.contextPath}/profile/follow" method="post">
                                     <input type="hidden" name="followed_id" value="${requestScope.userId}">
@@ -51,8 +56,8 @@
                     </div>
                     <div class="bottom-profile-info">
                         <p>${requestScope.postsQuantity} posts</p>
-                        <form action="${pageContext.request.contextPath}/profile/followers?username=${requestScope.username}" method="get" class="followers">
-                            <input type="hidden" name="userId" value="${requestScope.userId}">
+                        <form action="${pageContext.request.contextPath}/profile/followers" method="get" class="followers">
+                            <input type="hidden" name="username" value="${requestScope.username}">
                             <button type="submit" class="followers-button">${requestScope.followersQuantity} followers</button>
                         </form>
                         <p>${requestScope.followingQuantity} following</p>
@@ -60,9 +65,12 @@
                     </div>
                 </div>
 
-
                 <div class="followers-section">
                     <h2 class="section-title">Followers</h2>
+
+                    <c:if test="${empty requestScope.followers}">
+                        <p>You don't have any followers</p>
+                    </c:if>
 
                     <div class="followers-list">
                         <c:forEach var="follower" items="${requestScope.followers}">
@@ -72,12 +80,15 @@
                                 </c:if>
 
                                 <c:if test="${not empty follower.profileImageName}">
-                                    <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${follower.profileImageName}.jpg" alt="profile icon">
+                                    <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${follower.profileImageName}" alt="profile icon">
                                 </c:if>
-                                <p class="follower-name">${follower.username}</p>
+                                <a href="${pageContext.request.contextPath}/profile?username=${follower.username}" class="follower-name">
+                                        ${follower.username}
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
+
                 </div>
 
 

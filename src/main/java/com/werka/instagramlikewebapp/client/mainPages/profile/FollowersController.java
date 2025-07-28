@@ -20,21 +20,15 @@ public class FollowersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User currentUser = (User) req.getSession().getAttribute("user");
 
-        int userId = Integer.parseInt(req.getParameter("userId"));
-
-        UserProfile profileInfo;
         String username = req.getParameter("username");
-        if(username == null) {
-            profileInfo = profileService.getProfileInfo(userId);
-        } else {
-            profileInfo = profileService.getProfileInfoByUsername(username);
-        }
+        UserProfile profileInfo = profileService.getProfileInfoByUsername(username);
 
-        boolean isThisProfileMine = userId == profileInfo.getUserId();
+        boolean isThisProfileMine = currentUser.getId() == profileInfo.getUserId();
         req.setAttribute("isThisProfileMine", isThisProfileMine);
 
-        boolean isUserFollowed =  profileService.isUserFollowed(userId, profileInfo.getUserId());
+        boolean isUserFollowed =  profileService.isUserFollowed(currentUser.getId(), profileInfo.getUserId());
         req.setAttribute("isUserFollowed", !isUserFollowed);
 
         req.setAttribute("userId", profileInfo.getUserId());
@@ -45,7 +39,7 @@ public class FollowersController extends HttpServlet {
         req.setAttribute("bio", profileInfo.getBio());
         req.setAttribute("profileImageName", profileInfo.getProfileImageName());
 
-        List<FollowerDto> followers =  profileService.getFollowers(userId);
+        List<FollowerDto> followers =  profileService.getFollowers(profileInfo.getId());
         req.setAttribute("followers", followers);
 
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/followers.jsp").forward(req, resp);
