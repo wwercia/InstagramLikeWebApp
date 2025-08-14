@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/profile/followers")
-public class FollowersController extends HttpServlet {
+@WebServlet("/profile/following")
+public class FollowingController extends HttpServlet {
 
     private final ProfileService profileService = new ProfileService();
 
@@ -39,9 +39,10 @@ public class FollowersController extends HttpServlet {
         req.setAttribute("bio", profileInfo.getBio());
         req.setAttribute("profileImageName", profileInfo.getProfileImageName());
 
-        List<FollowerDto> followers =  profileService.getFollowers(profileInfo.getUserId());
-        req.setAttribute("followers", followers);
+        List<FollowerDto> following =  profileService.getFollowing(profileInfo.getUserId());
+        req.setAttribute("following", following);
 
-        req.getRequestDispatcher("/WEB-INF/mainPages/pages/followers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/mainPages/pages/following.jsp").forward(req, resp);
     }
+
 }

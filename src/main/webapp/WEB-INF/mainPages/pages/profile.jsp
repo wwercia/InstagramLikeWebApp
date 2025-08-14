@@ -61,12 +61,15 @@
                         <p>${requestScope.postsQuantity} posts</p>
 
                         <form action="${pageContext.request.contextPath}/profile/followers" method="get" class="followers">
-
                             <input type="hidden" name="username" value="${requestScope.username}">
                             <button type="submit" class="followers-button">${requestScope.followersQuantity} followers</button>
                         </form>
 
-                        <p>${requestScope.followingQuantity} following</p>
+                        <form action="${pageContext.request.contextPath}/profile/following" method="get" class="followers">
+                            <input type="hidden" name="username" value="${requestScope.username}">
+                            <button type="submit" class="followers-button">${requestScope.followingQuantity} following</button>
+                        </form>
+
                         <p style="white-space: pre-line;">${requestScope.bio}</p>
                     </div>
                 </div>

@@ -1,0 +1,138 @@
+
+.profile-information {
+    height: 22%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.top-profile-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.user-profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.top-profile-info form  {
+    margin-left: 15%;
+}
+
+.top-profile-info form button {
+    background-color: #446ba5;
+    color: white;
+    border: none;
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.top-profile-info form #unfollowButton {
+    background-color: #7098d3;
+}
+
+.bottom-profile-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* wyśrodkuj liczby */
+    gap: 30px;                /* odstęp między statystykami */
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+}
+
+.bottom-profile-info p {
+    margin: 0;
+}
+
+.bottom-profile-info p:last-child {
+    flex-basis: 100%;
+    font-weight: normal;
+    font-size: 0.95rem;
+    color: #4e4c4c;
+}
+
+.followers-button {
+    all: unset;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+
+
+
+.following-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+
+.followed_row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.followed-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.followed-name {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    text-decoration: none;
+}
+
+
+
+.following-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}

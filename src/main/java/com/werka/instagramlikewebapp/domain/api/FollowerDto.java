@@ -35,4 +35,13 @@ public class FollowerDto {
     public void setProfileImageName(String profileImageName) {
         this.profileImageName = profileImageName;
     }
+
+    @Override
+    public String toString() {
+        return "FollowerDto{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", profileImageName='" + profileImageName + '\'' +
+                '}';
+    }
 }

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: wwerc
-  Date: 27.07.2025
-  Time: 15:06
+  Date: 14.08.2025
+  Time: 15:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,9 +13,9 @@
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/followersStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/followingStyles.css">
     </head>
-    <body>
+        <body>
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf"%>
             <main>
@@ -65,25 +65,25 @@
                     </div>
                 </div>
 
-                <div class="followers-section">
-                    <h2 class="section-title">Followers</h2>
+                <div class="following-section">
+                    <h2 class="section-title">Following</h2>
 
-                    <c:if test="${empty requestScope.followers}">
-                        <p>This user has no followers</p>
+                    <c:if test="${empty requestScope.following}">
+                        <p>This user is not following anyone</p>
                     </c:if>
 
-                    <div class="followers-list">
-                        <c:forEach var="follower" items="${requestScope.followers}">
-                            <div class="follower-row">
-                                <c:if test="${empty follower.profileImageName}">
+                    <div class="following-list">
+                        <c:forEach var="followed" items="${requestScope.following}">
+                            <div class="followed-row">
+                                <c:if test="${empty followed.profileImageName}">
                                     <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/user%20icon.png" alt="profile icon">
                                 </c:if>
 
-                                <c:if test="${not empty follower.profileImageName}">
-                                    <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${follower.profileImageName}" alt="profile icon">
+                                <c:if test="${not empty followed.profileImageName}">
+                                    <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${followed.profileImageName}" alt="profile icon">
                                 </c:if>
-                                <a href="${pageContext.request.contextPath}/profile?username=${follower.username}" class="follower-name">
-                                        ${follower.username}
+                                <a href="${pageContext.request.contextPath}/profile?username=${followed.username}" class="followed-name">
+                                        ${followed.username}
                                 </a>
                             </div>
                         </c:forEach>

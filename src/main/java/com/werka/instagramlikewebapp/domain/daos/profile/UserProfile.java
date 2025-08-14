@@ -85,4 +85,18 @@ public class UserProfile {
     public void setProfileImageName(String profileImageName) {
         this.profileImageName = profileImageName;
     }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", username='" + username + '\'' +
+                ", postsQuantity=" + postsQuantity +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", bio='" + bio + '\'' +
+                ", profileImageName='" + profileImageName + '\'' +
+                '}';
+    }
 }

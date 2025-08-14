@@ -1,5 +1,6 @@
 package com.werka.instagramlikewebapp.domain.daos.profile;
 
+import com.werka.instagramlikewebapp.domain.api.FollowerDto;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.Connection;
@@ -68,5 +69,73 @@ public class UserFollowDao extends BaseDao {
             throw new RuntimeException("Błąd przy pobieraniu id followerów po id użytkownika", e);
         }
     }
+
+
+    public List<FollowerDto> getFollowersFullData(int userId) {
+        List<FollowerDto> followers = new ArrayList<>();
+
+        final String sql = String.join(" ",
+                "SELECT uf.follower_id AS id, u.username, up.profile_image_name",
+                "FROM user_follow uf",
+                "JOIN `user` u ON uf.follower_id = u.id",
+                "LEFT JOIN user_profile up ON u.id = up.user_id",
+                "WHERE uf.followed_id = ?"
+        );
+
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String profileImageName = rs.getString("profile_image_name");
+                followers.add(new FollowerDto(id, username, profileImageName));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu danych followerów", e);
+        }
+
+        return followers;
+    }
+
+    public List<FollowerDto> getFollowingFullData(int userId) {
+        List<FollowerDto> following = new ArrayList<>();
+
+        final String sql =
+                "SELECT uf.followed_id AS id, u.username, up.profile_image_name " +
+                        "FROM user_follow uf " +
+                        "JOIN user u ON uf.followed_id = u.id " +
+                        "LEFT JOIN user_profile up ON u.id = up.user_id " +
+                        "WHERE uf.follower_id = ?";
+
+
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String profileImageName = rs.getString("profile_image_name");
+                following.add(new FollowerDto(id, username, profileImageName));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu danych following", e);
+        }
+
+        return following;
+    }
+
 
 }

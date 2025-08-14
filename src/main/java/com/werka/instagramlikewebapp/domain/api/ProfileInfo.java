@@ -65,4 +65,16 @@ public class ProfileInfo {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileInfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", postsQuantity=" + postsQuantity +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
 }

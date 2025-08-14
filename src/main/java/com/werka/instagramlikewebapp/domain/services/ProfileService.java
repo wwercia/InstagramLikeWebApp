@@ -53,14 +53,10 @@ public class ProfileService {
     }
 
     public List<FollowerDto> getFollowers(int userId) {
-        List<Integer> ids = userFollowDao.getFollowersIds(userId);
-        List<FollowerDto> followers = new ArrayList<>();
-        for(int id : ids) {
-            String username = userDao.getUsernameById(id);
-            String profileImageName = userProfileDao.getProfileImageNameById(id);
-            followers.add(new FollowerDto(id, username, profileImageName));
-        }
-        return followers;
+        return userFollowDao.getFollowersFullData(userId);
     }
 
+    public List<FollowerDto> getFollowing(int userId) {
+        return userFollowDao.getFollowingFullData(userId);
+    }
 }
