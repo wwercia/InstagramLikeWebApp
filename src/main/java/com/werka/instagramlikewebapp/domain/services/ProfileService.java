@@ -1,6 +1,8 @@
 package com.werka.instagramlikewebapp.domain.services;
 
-import com.werka.instagramlikewebapp.domain.api.FollowerDto;
+import com.werka.instagramlikewebapp.domain.daos.profile.UserFollow;
+import com.werka.instagramlikewebapp.domain.dto.FollowDto;
+import com.werka.instagramlikewebapp.domain.dto.FollowerDto;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserFollowDao;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
@@ -58,5 +60,18 @@ public class ProfileService {
 
     public List<FollowerDto> getFollowing(int userId) {
         return userFollowDao.getFollowingFullData(userId);
+    }
+
+    public List<FollowDto> getFollowsFromLastTwoMonths(int userId) {
+        List<UserFollow> follows = userFollowDao.getFollowsFromLastTwoMonths(userId);
+        List<FollowDto> readyFollows = new ArrayList<>();
+        for(UserFollow follow : follows) {
+            readyFollows.add(new FollowDto(
+                    follow.getId(),
+                    userDao.getUsernameById(follow.getFollowerId()),
+                    String.format("%d %s %d", follow.getDate().getDayOfMonth(), follow.getDate().getMonth().name().toLowerCase(), follow.getDate().getYear())
+            ));
+        }
+        return readyFollows;
     }
 }

@@ -1,12 +1,11 @@
 package com.werka.instagramlikewebapp.domain.daos.profile;
 
-import com.werka.instagramlikewebapp.domain.api.FollowerDto;
+import com.werka.instagramlikewebapp.domain.daos.posts.PostLike;
+import com.werka.instagramlikewebapp.domain.dto.FollowerDto;
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class UserFollowDao extends BaseDao {
         String sql = "INSERT INTO user_follow (follower_id, followed_id) VALUES (?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1,followerId);
+            statement.setInt(1, followerId);
             statement.setInt(2, followedId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -115,7 +114,6 @@ public class UserFollowDao extends BaseDao {
                         "WHERE uf.follower_id = ?";
 
 
-
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -137,5 +135,30 @@ public class UserFollowDao extends BaseDao {
         return following;
     }
 
+    public List<UserFollow> getFollowsFromLastTwoMonths(int userId) {
+        List<UserFollow> follows = new ArrayList<>();
+        String sql = "SELECT * FROM user_follow WHERE followed_id = ? AND `date` >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) ORDER BY `date` DESC";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                follows.add(getUserFollowFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu like'ów z dwóch ostatnich miesięcy", e);
+        }
+        return follows;
+    }
+
+    private UserFollow getUserFollowFromResultSet(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int followerId = resultSet.getInt("follower_id");
+        int followedId = resultSet.getInt("followed_id");
+        Timestamp timestamp = resultSet.getTimestamp("date");
+        LocalDateTime addedAt = timestamp.toLocalDateTime();
+        return new UserFollow(id, followerId, followedId, addedAt);
+    }
 
 }

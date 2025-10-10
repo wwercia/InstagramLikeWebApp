@@ -1,12 +1,15 @@
 package com.werka.instagramlikewebapp.domain.services;
 
-import com.werka.instagramlikewebapp.domain.api.CommentDto;
+import com.werka.instagramlikewebapp.domain.daos.profile.UserFollow;
+import com.werka.instagramlikewebapp.domain.dto.CommentDto;
 import com.werka.instagramlikewebapp.domain.daos.posts.*;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
+import com.werka.instagramlikewebapp.domain.dto.FollowDto;
+import com.werka.instagramlikewebapp.domain.dto.LikeDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class PostService {
 
@@ -92,22 +95,45 @@ public class PostService {
 
     public List<CommentDto> getComments(String imageName, int userId) {
         int postId = postDao.getPostIdByImageName(imageName);
-
         List<Comment> comments = commentDao.getCommentsByPostId(postId);
-        List<CommentDto> readyComments = new ArrayList<>();
+        return getCommentDto(userId, comments);
+    }
 
+    public List<CommentDto> getCommentsFromLastTwoMonths(int userId) {
+        List<Post> posts = postDao.getPostsByUserId(userId);
+        List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
+        List<Comment> comments = commentDao.getCommentsByUserPostIdsFromLastTwoMonths(ids, userId);
+        return getCommentDto(userId, comments);
+    }
+
+    private List<CommentDto> getCommentDto(int userId, List<Comment> comments) {
+        List<CommentDto> readyComments = new ArrayList<>();
         for(Comment comment : comments) {
             readyComments.add(new CommentDto(
                     comment.getId(),
                     userDao.getUsernameById(comment.getUserId()),
                     comment.getComment(),
                     (comment.getUserId() == userId),
-                    String.format("%d %s %d", comment.getAddedAt().getDayOfMonth(), comment.getAddedAt().getMonth().name(), comment.getAddedAt().getYear())
+                    String.format("%d %s %d", comment.getAddedAt().getDayOfMonth(), comment.getAddedAt().getMonth().name().toLowerCase(), comment.getAddedAt().getYear())
             ));
         }
-
         return readyComments;
     }
 
+    public List<LikeDto> getLikesFromLastTwoMonths(int userId) {
+        List<Post> posts = postDao.getPostsByUserId(userId);
+        List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
+        List<PostLike> likes = postLikeDao.getLikesFromLastTwoMonths(ids, userId);
+        List<LikeDto> readyLikes = new ArrayList<>();
+        for(PostLike like : likes) {
+            readyLikes.add(new LikeDto(
+                    like.getId(),
+                    userDao.getUsernameById(like.getUserId()),
+                    like.getPostId(),
+                    String.format("%d %s %d", like.getDate().getDayOfMonth(), like.getDate().getMonth().name().toLowerCase(), like.getDate().getYear())
+            ));
+        }
+        return readyLikes;
+    }
 
 }

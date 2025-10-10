@@ -1,6 +1,6 @@
 package com.werka.instagramlikewebapp.client.mainPages.profile;
 
-import com.werka.instagramlikewebapp.domain.api.FollowerDto;
+import com.werka.instagramlikewebapp.domain.dto.FollowerDto;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.services.ProfileService;

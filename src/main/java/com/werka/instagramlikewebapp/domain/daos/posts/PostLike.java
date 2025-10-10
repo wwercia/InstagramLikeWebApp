@@ -1,15 +1,19 @@
 package com.werka.instagramlikewebapp.domain.daos.posts;
 
+import java.time.LocalDateTime;
+
 public class PostLike {
 
     private int id;
     private int userId;
-    private int post_id;
+    private int postId;
+    private LocalDateTime date;
 
-    public PostLike(int id, int userId, int post_id) {
+    public PostLike(int id, int userId, int post_id, LocalDateTime date) {
         this.id = id;
         this.userId = userId;
-        this.post_id = post_id;
+        this.postId = post_id;
+        this.date = date;
     }
 
     public int getId() {
@@ -28,12 +32,29 @@ public class PostLike {
         this.userId = userId;
     }
 
-    public int getPost_id() {
-        return post_id;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "PostLike{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", postId=" + postId +
+                ", date=" + date +
+                '}';
+    }
 }

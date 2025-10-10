@@ -1,4 +1,4 @@
-package com.werka.instagramlikewebapp.domain.api;
+package com.werka.instagramlikewebapp.domain.dto;
 
 public class FollowerDto {
 

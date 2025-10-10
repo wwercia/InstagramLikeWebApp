@@ -2,10 +2,10 @@ package com.werka.instagramlikewebapp.domain.daos.posts;
 
 import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostLikeDao extends BaseDao {
 
@@ -47,6 +47,35 @@ public class PostLikeDao extends BaseDao {
             e.printStackTrace();
             throw new RuntimeException("Błąd w removeLikeFromPostLikes()", e);
         }
+    }
+
+    public List<PostLike> getLikesFromLastTwoMonths(List<Integer> postIds, int userId) {
+        List<PostLike> likes = new ArrayList<>();
+        for(int id : postIds) {
+            String sql = "SELECT * FROM post_like WHERE `post_id` = ? AND user_id != ? AND `date` >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) ORDER BY `date` DESC";
+            try (Connection connection = getConnection();
+                 PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, id);
+                statement.setInt(2, userId);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    likes.add(getLikeFromResultSet(resultSet));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Błąd przy pobieraniu like'ów z dwóch ostatnich miesięcy", e);
+            }
+        }
+        return likes;
+    }
+
+    private PostLike getLikeFromResultSet(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        int userId = resultSet.getInt("user_id");
+        int postId = resultSet.getInt("post_id");
+        Timestamp timestamp = resultSet.getTimestamp("date");
+        LocalDateTime addedAt = timestamp.toLocalDateTime();
+        return new PostLike(id, userId, postId, addedAt);
     }
 
 }

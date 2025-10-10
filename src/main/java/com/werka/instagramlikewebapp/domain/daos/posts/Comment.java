@@ -57,4 +57,15 @@ public class Comment {
     public void setAddedAt(LocalDateTime addedAt) {
         this.addedAt = addedAt;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", postId=" + postId +
+                ", userId=" + userId +
+                ", comment='" + comment + '\'' +
+                ", addedAt=" + addedAt +
+                '}';
+    }
 }

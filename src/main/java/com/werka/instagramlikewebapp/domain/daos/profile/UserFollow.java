@@ -1,15 +1,19 @@
 package com.werka.instagramlikewebapp.domain.daos.profile;
 
+import java.time.LocalDateTime;
+
 public class UserFollow {
 
     private int id;
     private int followerId;
     private int followedId;
+    private LocalDateTime date;
 
-    public UserFollow(int id, int followerId, int followedId) {
+    public UserFollow(int id, int followerId, int followedId, LocalDateTime date) {
         this.id = id;
         this.followerId = followerId;
         this.followedId = followedId;
+        this.date = date;
     }
 
     public int getId() {
@@ -34,5 +38,13 @@ public class UserFollow {
 
     public void setFollowedId(int followedId) {
         this.followedId = followedId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }

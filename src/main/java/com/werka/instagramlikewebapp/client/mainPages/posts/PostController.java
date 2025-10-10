@@ -1,7 +1,6 @@
 package com.werka.instagramlikewebapp.client.mainPages.posts;
 
-import com.werka.instagramlikewebapp.domain.api.CommentDto;
-import com.werka.instagramlikewebapp.domain.daos.posts.Comment;
+import com.werka.instagramlikewebapp.domain.dto.CommentDto;
 import com.werka.instagramlikewebapp.domain.daos.posts.Post;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.user.User;
@@ -16,8 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
