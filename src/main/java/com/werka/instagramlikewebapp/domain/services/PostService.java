@@ -6,6 +6,7 @@ import com.werka.instagramlikewebapp.domain.daos.posts.*;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
 import com.werka.instagramlikewebapp.domain.dto.FollowDto;
 import com.werka.instagramlikewebapp.domain.dto.LikeDto;
+import com.werka.instagramlikewebapp.domain.dto.TagDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class PostService {
     private final PostLikeDao postLikeDao = new PostLikeDao();
     private final CommentDao commentDao = new CommentDao();
     private final UserDao userDao = new UserDao();
+    private final PostCollaboratorDao postCollaboratorDao = new PostCollaboratorDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -134,6 +136,20 @@ public class PostService {
             ));
         }
         return readyLikes;
+    }
+
+    public List<TagDto> getTagsFromLastTwoMonths(int userId) {
+        List<PostCollaborator> postCollaborators = postCollaboratorDao.getTagsFromLastTwoMonths(userId);
+        List<TagDto> readyTags = new ArrayList<>();
+        for(PostCollaborator tag : postCollaborators) {
+            readyTags.add(new TagDto(
+                    tag.getId(),
+                    userDao.getUsernameById(postDao.getUserIdByPostId(tag.getPostId())),
+                    tag.getPostId(),
+                    String.format("%d %s %d", tag.getDate().getDayOfMonth(), tag.getDate().getMonth().name().toLowerCase(), tag.getDate().getYear())
+            ));
+        }
+        return readyTags;
     }
 
 }

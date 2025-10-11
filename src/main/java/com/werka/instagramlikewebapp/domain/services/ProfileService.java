@@ -7,6 +7,7 @@ import com.werka.instagramlikewebapp.domain.daos.profile.UserFollowDao;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
+import com.werka.instagramlikewebapp.domain.dto.TagDto;
 
 import java.util.ArrayList;
 import java.util.List;

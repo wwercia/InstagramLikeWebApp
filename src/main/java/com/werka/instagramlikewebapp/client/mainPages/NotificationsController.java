@@ -1,11 +1,10 @@
 package com.werka.instagramlikewebapp.client.mainPages;
 
-import com.werka.instagramlikewebapp.domain.daos.posts.Comment;
-import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.user.User;
 import com.werka.instagramlikewebapp.domain.dto.CommentDto;
 import com.werka.instagramlikewebapp.domain.dto.FollowDto;
 import com.werka.instagramlikewebapp.domain.dto.LikeDto;
+import com.werka.instagramlikewebapp.domain.dto.TagDto;
 import com.werka.instagramlikewebapp.domain.services.PostService;
 import com.werka.instagramlikewebapp.domain.services.ProfileService;
 import jakarta.servlet.ServletException;
@@ -33,10 +32,10 @@ public class NotificationsController extends HttpServlet {
         req.setAttribute("likes", likes);
 
         List<FollowDto> follows = profileService.getFollowsFromLastTwoMonths(currentUser.getId());
-        for(FollowDto followDto : follows) {
-            System.out.println(followDto);
-        }
         req.setAttribute("follows", follows);
+
+        List<TagDto> tags = postService.getTagsFromLastTwoMonths(currentUser.getId());
+        req.setAttribute("tags", tags);
 
 
         req.getRequestDispatcher("/WEB-INF/mainPages/pages/notifications.jsp").forward(req, resp);

@@ -190,6 +190,21 @@ public class PostDao extends BaseDao {
         }
     }
 
+    public int getUserIdByPostId(int postId) {
+        final String sql = "SELECT * FROM post WHERE `id` = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, postId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("user_id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu id uzytkownika po id posta", e);
+        }
+    }
+
+
     private int getPostIdFromPostName(String postName) {
         return Integer.parseInt(postName.replace("post", ""));
     }

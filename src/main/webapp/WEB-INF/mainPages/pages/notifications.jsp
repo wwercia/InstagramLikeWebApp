@@ -34,6 +34,11 @@
                     <p>${follow.followerUsername} followed you! on ${follow.date}</p>
                 </c:forEach>
 
+                <p>Tags</p>
+                <c:forEach var="tag" items="${requestScope.tags}">
+                    <p>${tag.username} tagged you on his/her post (postId = ${tag.postId})! on ${tag.date}</p>
+                </c:forEach>
+
             </main>
         </div>
     </body>
