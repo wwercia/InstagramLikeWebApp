@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegisterController extends HttpServlet {
 
-    private RegisterService registerService = new RegisterService();
+    private final RegisterService registerService = new RegisterService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

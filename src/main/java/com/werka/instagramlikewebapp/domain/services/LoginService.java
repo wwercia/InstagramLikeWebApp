@@ -5,7 +5,7 @@ import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
 
 public class LoginService {
 
-    private UserDao userDao = new UserDao();
+    private final UserDao userDao = new UserDao();
 
     public User logIn(String email, String password) {
         return userDao.getUserIfDataIsCorrect(email, password);

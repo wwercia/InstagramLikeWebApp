@@ -4,13 +4,17 @@ public class CommentDto {
 
     private int id;
     private String username;
+    private String profileImageName;
+    private int postId;
     private String comment;
     private boolean commentMine;
     private String date;
 
-    public CommentDto(int id, String username, String comment, boolean commentMine, String date) {
+    public CommentDto(int id, String username, String profileImageName, int postId, String comment, boolean commentMine, String date) {
         this.id = id;
         this.username = username;
+        this.profileImageName = profileImageName;
+        this.postId = postId;
         this.comment = comment;
         this.commentMine = commentMine;
         this.date = date;
@@ -30,6 +34,22 @@ public class CommentDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getProfileImageName() {
+        return profileImageName;
+    }
+
+    public void setProfileImageName(String profileImageName) {
+        this.profileImageName = profileImageName;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public String getComment() {

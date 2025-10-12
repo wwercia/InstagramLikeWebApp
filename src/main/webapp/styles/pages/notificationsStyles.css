@@ -1,0 +1,165 @@
+/* --- Ogólne ustawienia kontenera --- */
+.notifications-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20px;
+    background-color: #fafafa;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+/* --- Siatka dwóch kolumn (lewa/prawa) --- */
+.notifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Kolumna (zawiera sekcje powiadomień) */
+.notifications-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* --- Pojedyncza sekcja (Comments, Likes, itp.) --- */
+.notification-section {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 350px; /* stała wysokość sekcji */
+}
+
+/* Sticky nagłówek sekcji */
+.notification-section h3 {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- Lista powiadomień wewnątrz sekcji --- */
+.notification-list {
+    padding: 10px 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Scrollbar styl */
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+/* --- Pojedynczy element powiadomienia --- */
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background-color: #f7faff;
+    transform: translateX(2px);
+}
+
+.user-profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.notification-item p {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.username {
+    font-weight: 600;
+    color: #222;
+}
+
+.message {
+    font-style: italic;
+    color: #555;
+}
+
+.date {
+    font-size: 13px;
+    color: #999;
+    margin-left: 5px;
+}
+
+.post-id {
+    color: #666;
+    font-weight: 500;
+}
+
+.containerForNoNotificationsText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.noNotificationsText {
+    font-size: 15px;
+    color: #888;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.usernameComment, .postt {
+    color: #274b87;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.usernameComment:hover, .postt:hover {
+    color: #274b87;
+    cursor: pointer;
+}
+

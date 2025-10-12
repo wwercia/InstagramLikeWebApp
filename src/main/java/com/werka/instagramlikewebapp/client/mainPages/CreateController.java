@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet("/create")
 public class CreateController extends HttpServlet  {
 
-    private PostService postService = new PostService();
+    private final PostService postService = new PostService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

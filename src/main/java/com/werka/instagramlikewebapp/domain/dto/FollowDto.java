@@ -4,11 +4,13 @@ public class FollowDto {
 
     private int id;
     private String followerUsername;
+    private String profileImageName;
     private String date;
 
-    public FollowDto(int id, String followerUsername, String date) {
+    public FollowDto(int id, String followerUsername, String profileImageName, String date) {
         this.id = id;
         this.followerUsername = followerUsername;
+        this.profileImageName = profileImageName;
         this.date = date;
     }
 
@@ -26,6 +28,14 @@ public class FollowDto {
 
     public void setFollowerUsername(String followerUsername) {
         this.followerUsername = followerUsername;
+    }
+
+    public String getProfileImageName() {
+        return profileImageName;
+    }
+
+    public void setProfileImageName(String profileImageName) {
+        this.profileImageName = profileImageName;
     }
 
     public String getDate() {

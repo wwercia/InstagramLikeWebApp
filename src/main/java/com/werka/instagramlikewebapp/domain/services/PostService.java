@@ -1,10 +1,9 @@
 package com.werka.instagramlikewebapp.domain.services;
 
-import com.werka.instagramlikewebapp.domain.daos.profile.UserFollow;
+import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
 import com.werka.instagramlikewebapp.domain.dto.CommentDto;
 import com.werka.instagramlikewebapp.domain.daos.posts.*;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
-import com.werka.instagramlikewebapp.domain.dto.FollowDto;
 import com.werka.instagramlikewebapp.domain.dto.LikeDto;
 import com.werka.instagramlikewebapp.domain.dto.TagDto;
 
@@ -20,6 +19,7 @@ public class PostService {
     private final CommentDao commentDao = new CommentDao();
     private final UserDao userDao = new UserDao();
     private final PostCollaboratorDao postCollaboratorDao = new PostCollaboratorDao();
+    private final UserProfileDao userProfileDao = new UserProfileDao();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -114,6 +114,8 @@ public class PostService {
             readyComments.add(new CommentDto(
                     comment.getId(),
                     userDao.getUsernameById(comment.getUserId()),
+                    userProfileDao.getProfileImageNameById(comment.getUserId()),
+                    comment.getPostId(),
                     comment.getComment(),
                     (comment.getUserId() == userId),
                     String.format("%d %s %d", comment.getAddedAt().getDayOfMonth(), comment.getAddedAt().getMonth().name().toLowerCase(), comment.getAddedAt().getYear())
@@ -131,6 +133,7 @@ public class PostService {
             readyLikes.add(new LikeDto(
                     like.getId(),
                     userDao.getUsernameById(like.getUserId()),
+                    userProfileDao.getProfileImageNameById(like.getUserId()),
                     like.getPostId(),
                     String.format("%d %s %d", like.getDate().getDayOfMonth(), like.getDate().getMonth().name().toLowerCase(), like.getDate().getYear())
             ));
@@ -142,9 +145,11 @@ public class PostService {
         List<PostCollaborator> postCollaborators = postCollaboratorDao.getTagsFromLastTwoMonths(userId);
         List<TagDto> readyTags = new ArrayList<>();
         for(PostCollaborator tag : postCollaborators) {
+            int id = postDao.getUserIdByPostId(tag.getPostId());
             readyTags.add(new TagDto(
                     tag.getId(),
-                    userDao.getUsernameById(postDao.getUserIdByPostId(tag.getPostId())),
+                    userDao.getUsernameById(id),
+                    userProfileDao.getProfileImageNameById(id),
                     tag.getPostId(),
                     String.format("%d %s %d", tag.getDate().getDayOfMonth(), tag.getDate().getMonth().name().toLowerCase(), tag.getDate().getYear())
             ));

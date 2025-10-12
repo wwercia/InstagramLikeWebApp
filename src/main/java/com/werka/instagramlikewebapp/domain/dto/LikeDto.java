@@ -4,12 +4,14 @@ public class LikeDto {
 
     private int id;
     private String username;
+    private String profileImageName;
     private int postId;
     private String date;
 
-    public LikeDto(int id, String followerUsername, int postId, String date) {
+    public LikeDto(int id, String followerUsername, String profileImageName, int postId, String date) {
         this.id = id;
         this.username = followerUsername;
+        this.profileImageName = profileImageName;
         this.postId = postId;
         this.date = date;
     }
@@ -22,12 +24,20 @@ public class LikeDto {
         this.id = id;
     }
 
-    public String getFollowerUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setFollowerUsername(String followerUsername) {
-        this.username = followerUsername;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getProfileImageName() {
+        return profileImageName;
+    }
+
+    public void setProfileImageName(String profileImageName) {
+        this.profileImageName = profileImageName;
     }
 
     public int getPostId() {
@@ -50,7 +60,8 @@ public class LikeDto {
     public String toString() {
         return "LikeDto{" +
                 "id=" + id +
-                ", followerUsername='" + username + '\'' +
+                ", username='" + username + '\'' +
+                ", profileImageName='" + profileImageName + '\'' +
                 ", postId=" + postId +
                 ", date='" + date + '\'' +
                 '}';

@@ -7,16 +7,15 @@ import com.werka.instagramlikewebapp.domain.daos.profile.UserFollowDao;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
-import com.werka.instagramlikewebapp.domain.dto.TagDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileService {
 
-    private UserProfileDao userProfileDao = new UserProfileDao();
-    private UserDao userDao = new UserDao();
-    private UserFollowDao userFollowDao = new UserFollowDao();
+    private final UserProfileDao userProfileDao = new UserProfileDao();
+    private final UserDao userDao = new UserDao();
+    private final UserFollowDao userFollowDao = new UserFollowDao();
 
     public UserProfile getProfileInfo(int userId) {
         return userProfileDao.getUserProfileById(userId, userDao.getUsernameById(userId));
@@ -70,6 +69,7 @@ public class ProfileService {
             readyFollows.add(new FollowDto(
                     follow.getId(),
                     userDao.getUsernameById(follow.getFollowerId()),
+                    userProfileDao.getProfileImageNameById(follow.getFollowerId()),
                     String.format("%d %s %d", follow.getDate().getDayOfMonth(), follow.getDate().getMonth().name().toLowerCase(), follow.getDate().getYear())
             ));
         }

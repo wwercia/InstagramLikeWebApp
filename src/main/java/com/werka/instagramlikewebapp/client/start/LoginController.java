@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginController  extends HttpServlet {
 
-    private LoginService loginService = new LoginService();
+    private final LoginService loginService = new LoginService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

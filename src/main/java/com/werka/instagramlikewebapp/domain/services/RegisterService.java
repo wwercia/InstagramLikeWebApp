@@ -6,8 +6,8 @@ import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
 
 public class RegisterService {
 
-    private UserDao userDao = new UserDao();
-    private UserProfileDao userProfileDao = new UserProfileDao();
+    private final UserDao userDao = new UserDao();
+    private final UserProfileDao userProfileDao = new UserProfileDao();
 
     public User register(String email, String password, String username, String firstName, String lastName, Integer age) {
         if(userDao.isEmailFree(email)) {

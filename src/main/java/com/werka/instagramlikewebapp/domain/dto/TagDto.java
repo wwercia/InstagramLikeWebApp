@@ -4,12 +4,14 @@ public class TagDto {
 
     private int id;
     private String username;
+    private String profileImageName;
     private int postId;
     private String date;
 
-    public TagDto(int id, String username, int postId, String date) {
+    public TagDto(int id, String username, String profileImageName, int postId, String date) {
         this.id = id;
         this.username = username;
+        this.profileImageName = profileImageName;
         this.postId = postId;
         this.date = date;
     }
@@ -28,6 +30,14 @@ public class TagDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getProfileImageName() {
+        return profileImageName;
+    }
+
+    public void setProfileImageName(String profileImageName) {
+        this.profileImageName = profileImageName;
     }
 
     public String getDate() {
