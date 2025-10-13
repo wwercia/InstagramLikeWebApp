@@ -11,11 +11,16 @@
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/settingsStyles.css">
     </head>
     <body>
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf"%>
             <main>
+
+                <form action="${pageContext.request.contextPath}/logout" method="get" class="logout-form">
+                    <button type="submit" class="logout-button">Log Out</button>
+                </form>
 
             </main>
         </div>
