@@ -49,24 +49,7 @@ public class PostDao extends BaseDao {
         }
     }
 
-    public void saveCollaborators(int postId, List<String> collaborators) {
-        List<Integer> userIds = getUserIdsByUsernames(collaborators);
-        String sql = "INSERT INTO post_collaborators (post_id, user_collaborator_id) VALUES (?, ?)";
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (Integer userId : userIds) {
-                statement.setInt(1, postId);
-                statement.setInt(2, userId);
-                statement.addBatch();
-            }
-            statement.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Błąd przy zapisie posta", e);
-        }
-    }
-
-    private List<Integer> getUserIdsByUsernames(List<String> names) {
+    public List<Integer> getUserIdsByUsernames(List<String> names) {
         List<Integer> userIds = new ArrayList<>();
         if (names == null || names.isEmpty()) return userIds;
         String sql = "SELECT id FROM user WHERE username IN (" + buildPlaceholders(names.size()) + ")";

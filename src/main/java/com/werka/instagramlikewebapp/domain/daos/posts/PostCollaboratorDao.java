@@ -26,6 +26,22 @@ public class PostCollaboratorDao extends BaseDao {
         return tags;
     }
 
+    public void saveCollaborators(int postId, List<Integer> userIds) {
+        String sql = "INSERT INTO post_collaborators (post_id, user_collaborator_id) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (Integer userId : userIds) {
+                statement.setInt(1, postId);
+                statement.setInt(2, userId);
+                statement.addBatch();
+            }
+            statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy zapisie posta", e);
+        }
+    }
+
     private PostCollaborator getPostCollaboratorsFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int postId = resultSet.getInt("post_id");

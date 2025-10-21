@@ -26,7 +26,9 @@ public class PostService {
         String newImageName = "post" + postId;
         postDao.changeImageName(newImageName);
         postDao.changeImageExtension(extension, postId);
-        postDao.saveCollaborators(postId, collaborators);
+        List<Integer> userIds = postDao.getUserIdsByUsernames(collaborators);
+        userIds.remove((Integer) userId);
+        postCollaboratorDao.saveCollaborators(postId, userIds);
         postDao.increasePostsQuantity(userId);
         return newImageName;
     }
