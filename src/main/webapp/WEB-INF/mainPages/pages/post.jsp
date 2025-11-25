@@ -23,7 +23,7 @@
 
                 <div class="post">
                     <div class="post-image">
-                        <img id="postImage" src="${pageContext.request.contextPath}/uploads/${requestScope.post.imageName}${requestScope.post.extension}" alt="Your post"/>
+                        <img id="postImage" src="${pageContext.request.contextPath}/uploads/${requestScope.post.imageName}${requestScope.post.extension}" alt="Post"/>
                     </div>
 
                     <div class="post-content">

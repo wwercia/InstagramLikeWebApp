@@ -1,14 +1,17 @@
 package com.werka.instagramlikewebapp.domain.services;
 
+import com.werka.instagramlikewebapp.domain.daos.profile.UserProfile;
 import com.werka.instagramlikewebapp.domain.daos.profile.UserProfileDao;
-import com.werka.instagramlikewebapp.domain.dto.CommentDto;
+import com.werka.instagramlikewebapp.domain.daos.user.User;
+import com.werka.instagramlikewebapp.domain.dto.*;
 import com.werka.instagramlikewebapp.domain.daos.posts.*;
 import com.werka.instagramlikewebapp.domain.daos.user.UserDao;
-import com.werka.instagramlikewebapp.domain.dto.LikeDto;
-import com.werka.instagramlikewebapp.domain.dto.TagDto;
 
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class PostService {
@@ -20,6 +23,7 @@ public class PostService {
     private final UserDao userDao = new UserDao();
     private final PostCollaboratorDao postCollaboratorDao = new PostCollaboratorDao();
     private final UserProfileDao userProfileDao = new UserProfileDao();
+    private final ProfileService profileService = new ProfileService();
 
     public String savePostAndCollaborators(int userId, String imageName, String description, String location, int likes, List<String> collaborators, String extension) {
         int postId = postDao.savePost(userId, imageName, description, location, likes, extension);
@@ -39,6 +43,41 @@ public class PostService {
 
     public List<Post> getUserPosts(int userID) {
         return postDao.getPostsByUserId(userID);
+    }
+
+    /*
+    najpierw pobierz kogo obserwujesz
+    wez 5 najnowszych postow od kazdego i ułóż w kolejnosi po dacie od najnowszej
+    jesli jest wiecej niz 25 to usun nadwyżke
+
+    potem jakos zrob ocje "zaladuj wiecej"
+     */
+
+    public List<HomePostDto> getPostsForHome(int userIdd, User currentUser, List<FollowerDto> following) {
+        List<HomePostDto> result = new ArrayList<>();
+
+        for(Post post : postDao.getMostRecentPostsFromEachFollowing(userIdd)) {
+
+            int userId = getPostByImageName(post.getImageName()).getUserId();
+            UserProfile userProfile = profileService.getProfileInfo(userId);
+            String profileImageName =  userProfile.getProfileImageName();
+            String username = userProfile.getUsername();
+
+            boolean isPostSaved = isPostSavedInUserSavedPosts(post.getImageName(), currentUser.getId());
+            boolean isPostLiked = isPostLikedByUser(post.getImageName(), currentUser.getId());
+
+            List<CommentDto> comments = getComments(post.getImageName(), currentUser.getId());
+
+            LocalDateTime addedAtt = post.getAddedAt();
+            String month = addedAtt.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+            String addedAt = String.format("%d %s %d", addedAtt.getDayOfMonth(), month, addedAtt.getYear());
+
+            boolean isPostUsers = post.getUserId() == currentUser.getId();
+
+            result.add(new HomePostDto(profileImageName, username, post, isPostSaved, isPostLiked, comments, addedAt, isPostUsers));
+        }
+
+        return result;
     }
 
     public Post getPostByImageName(String imageName) {

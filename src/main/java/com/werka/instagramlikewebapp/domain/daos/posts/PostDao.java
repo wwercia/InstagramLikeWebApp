@@ -4,10 +4,7 @@ import com.werka.instagramlikewebapp.domain.daos.BaseDao;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PostDao extends BaseDao {
@@ -78,6 +75,28 @@ public class PostDao extends BaseDao {
             }
         }
         return sb.toString();
+    }
+
+    public List<Post> getMostRecentPostsFromEachFollowing(int userId) {
+        List<Post> posts = new ArrayList<>();
+        String sql = "SELECT * FROM post " +
+                "WHERE user_id IN ( SELECT followed_id FROM user_follow WHERE follower_id = ?) " +
+                "ORDER BY `date` DESC LIMIT 15";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Post post = getPostFromResultSet(rs);
+                    posts.add(post);
+                }
+            }
+            Collections.reverse(posts);
+            return posts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Błąd przy pobieraniu najnowszych postów od każdego obserwowanego", e);
+        }
     }
 
     public List<Post> getPostsByUserId(int userId) {

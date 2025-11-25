@@ -13,13 +13,148 @@
         <title>Sharrie</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/segments/sidebarStyles.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/basicStyles.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/pages/homeStyles.css">
+
     </head>
     <body>
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf"%>
             <main>
 
-                <h1>login correct</h1>
+                <div class="photos">
+                    <c:forEach var="post" items="${requestScope.posts}">
+                        <div class="post">
+                            <div class="post-image">
+                                <img id="postImage" src="${pageContext.request.contextPath}/uploads/${post.post.imageName}${post.post.extension}" alt="Post"/>
+                            </div>
+
+                            <div class="post-content">
+
+                                <div class="user-data-container">
+                                    <c:if test="${empty post.profileImageName}">
+                                        <img class="user-profile-photo" src="${pageContext.request.contextPath}/images/icons/user%20icon.png" alt="profile icon">
+                                    </c:if>
+                                    <c:if test="${not empty post.profileImageName}">
+                                        <img class="user-profile-photo" src="${pageContext.request.contextPath}/uploads/${post.profileImageName}" alt="profile icon">
+                                    </c:if>
+                                    <a href="${pageContext.request.contextPath}/profile?username=${post.username}" class="username">
+                                            ${post.username}
+                                    </a>
+                                    <c:choose>
+                                        <c:when test="${post.isPostUsers}">
+                                            <p class="addedAt1">${post.addedAt}</p>
+                                            <form action="${pageContext.request.contextPath}/deletePost" method="post" class="delete-post-form">
+                                                <input type="hidden" name="postId" value="${post.post.id}"/>
+                                                <button type="submit" class="icon-btn" title="Delete Post">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2">
+                                                        <path d="M10 11v6"/>
+                                                        <path d="M14 11v6"/>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                                                        <path d="M3 6h18"/>
+                                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="addedAt2">${post.addedAt}</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+
+                                <div class="description-bar">
+                                    <p class="description-text">${post.post.description}</p>
+                                    <form id="saveForm" action="${pageContext.request.contextPath}/save" method="get" class="icon-form">
+                                        <button type="submit" class="icon-button">
+                                            <c:choose>
+                                                <c:when test="${post.isPostSaved}">
+                                                    <img src="${pageContext.request.contextPath}/images/icons/post%20saved.png" alt="post saved icon" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${pageContext.request.contextPath}/images/icons/post%20not%20saved.png" alt="post not saved icon" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </button>
+                                        <input type="hidden" name="imageName" value="${post.post.imageName}" />
+                                    </form>
+                                </div>
+
+
+                                <!-- Location -->
+                                <c:if test="${not empty post.post.location and post.post.location != 'null'}">
+                                    <p class="location">Location: ${post.post.location}</p>
+                                </c:if>
+
+                                <form id="likesForm" action="${pageContext.request.contextPath}/like" method="post" class="likes-form">
+                                    <button type="submit" class="like-button">
+                                        <c:choose>
+                                            <c:when test="${post.isPostLiked}">
+                                                <img src="${pageContext.request.contextPath}/images/icons/liked%20heart%20icon.png" alt="liked post heart icon" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/images/icons/heart%20icon.png" alt="not liked post heart icon" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </button>
+                                    <span class="likes-count">${post.post.likes} likes</span>
+                                    <input type="hidden" name="imageName" value="${post.post.imageName}" />
+                                </form>
+
+
+                                <!-- Comment form -->
+                                <form action="${pageContext.request.contextPath}/comment" method="post" class="comment-form">
+                                    <label for="comment"></label>
+                                    <textarea id="comment" name="comment" rows="3" maxlength="50" required placeholder="Your comment..."></textarea>
+                                    <input type="hidden" name="imageName" value="${post.post.imageName}" />
+                                    <button>Add comment</button>
+                                </form>
+
+                                <!-- Scrollable comments -->
+                                <div class="comments-scroll">
+                                    <c:forEach var="comment" items="${post.comments}">
+
+                                        <div class="comment">
+                                            <div class="comment-body">
+                                                <div class="comment-info">
+                                                    <a href="${pageContext.request.contextPath}/profile?username=${comment.username}" class="usernameComment">
+                                                            ${comment.username}
+                                                    </a>
+                                                    <p class="comment-date">${comment.date}</p>
+                                                </div>
+                                                <div class="comment-text">
+                                                        ${comment.comment}
+                                                </div>
+                                            </div>
+
+                                            <c:if test="${comment.commentMine}">
+                                                <div class="comment-actions">
+                                                    <form action="${pageContext.request.contextPath}/deleteComment" method="post" class="delete-comment-form">
+                                                        <input type="hidden" name="commentId" value="${comment.id}"/>
+                                                        <button class="icon-btn" title="Delete">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2">
+                                                                <path d="M10 11v6"/>
+                                                                <path d="M14 11v6"/>
+                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                                                                <path d="M3 6h18"/>
+                                                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </c:if>
+                                        </div>
+
+
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+
+
 
             </main>
         </div>

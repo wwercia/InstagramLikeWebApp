@@ -7,14 +7,6 @@
     </div>
 </c:if>
 <c:forEach var="post" items="${requestScope.taggedPosts}">
-    <div class="post">
-        <form id="${post.imageName}" action="${pageContext.request.contextPath}/post" method="get">
-            <input type="hidden" name="imageName" value="${post.imageName}" />
-            <img class="photo" loading="lazy"
-                 src="${pageContext.request.contextPath}/uploads/${post.imageName}${post.extension}"
-                 alt="Your photo"
-                 onclick="document.getElementById('${post.imageName}').submit();"/>
-        </form>
-    </div>
+    <%@ include file="post.jspf" %>
 </c:forEach>
 
