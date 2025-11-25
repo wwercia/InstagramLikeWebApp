@@ -77,14 +77,18 @@ public class PostDao extends BaseDao {
         return sb.toString();
     }
 
-    public List<Post> getMostRecentPostsFromEachFollowing(int userId) {
+    public List<Post> getMostRecentPostsFromEachFollowing(int userId, int offset) {
         List<Post> posts = new ArrayList<>();
+
         String sql = "SELECT * FROM post " +
                 "WHERE user_id IN ( SELECT followed_id FROM user_follow WHERE follower_id = ?) " +
-                "ORDER BY `date` DESC LIMIT 15";
+                "ORDER BY `date` DESC LIMIT 10 OFFSET ? ";
+
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
+            statement.setInt(2, offset);
+
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     Post post = getPostFromResultSet(rs);

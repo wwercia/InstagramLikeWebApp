@@ -53,10 +53,10 @@ public class PostService {
     potem jakos zrob ocje "zaladuj wiecej"
      */
 
-    public List<HomePostDto> getPostsForHome(int userIdd, User currentUser, List<FollowerDto> following) {
+    public List<HomePostDto> getPostsForHome(int userIdd, User currentUser, int offset) {
         List<HomePostDto> result = new ArrayList<>();
 
-        for(Post post : postDao.getMostRecentPostsFromEachFollowing(userIdd)) {
+        for(Post post : postDao.getMostRecentPostsFromEachFollowing(userIdd, offset)) {
 
             int userId = getPostByImageName(post.getImageName()).getUserId();
             UserProfile userProfile = profileService.getProfileInfo(userId);

@@ -15,6 +15,36 @@ main {
     padding: 10px;
 }
 
+.see-more-container {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.see-more-form button {
+    display: inline-block;
+}
+
+.see-more-form button {
+    background-color: #406c97;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.see-more-form button:hover {
+    background-color: #335e98;
+}
+
+.no-more-posts {
+    font-size: 15px;
+    color: #706f6f;
+    font-style: italic;
+    line-height: 1.5;
+}
+
 /* Główny kontener posta */
 .post {
     display: flex;
@@ -364,3 +394,4 @@ textarea {
         max-height: 200px;
     }
 }
+

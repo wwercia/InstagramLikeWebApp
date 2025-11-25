@@ -26,10 +26,20 @@ public class HomeController extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("user");
 
         if (currentUser != null) {
-            List<FollowerDto> followings = profileService.getFollowing(currentUser.getId());
-            List<HomePostDto> posts = postService.getPostsForHome(currentUser.getId(), currentUser, followings);
+            String pagee = req.getParameter("page");
+            int page = 0;
+
+            if(pagee != null && !pagee.isEmpty()){
+                page = Integer.parseInt(pagee);
+            }
+            int offset = page * 10;
+
+            List<HomePostDto> posts = postService.getPostsForHome(currentUser.getId(), currentUser, offset);
             Collections.reverse(posts);
             req.setAttribute("posts", posts);
+            page++;
+            req.setAttribute("page", page);
+            req.setAttribute("postsQuantity", posts.size());
             req.getRequestDispatcher("/WEB-INF/mainPages/pages/home.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("/WEB-INF/start/index.jsp").forward(req, resp);
