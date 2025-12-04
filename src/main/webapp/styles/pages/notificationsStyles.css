@@ -1,11 +1,8 @@
-/* --- Ogólne ustawienia kontenera --- */
 .notifications-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     padding: 40px 20px;
-    background-color: #fafafa;
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -16,7 +13,6 @@
     color: #333;
 }
 
-/* --- Siatka dwóch kolumn (lewa/prawa) --- */
 .notifications-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -25,14 +21,12 @@
     max-width: 1000px;
 }
 
-/* Kolumna (zawiera sekcje powiadomień) */
 .notifications-column {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-/* --- Pojedyncza sekcja (Comments, Likes, itp.) --- */
 .notification-section {
     background-color: white;
     border-radius: 16px;
@@ -40,10 +34,9 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 350px; /* stała wysokość sekcji */
+    height: 350px;
 }
 
-/* Sticky nagłówek sekcji */
 .notification-section h3 {
     background-color: white;
     position: sticky;
@@ -57,14 +50,12 @@
     border-bottom: 1px solid #eee;
 }
 
-/* --- Lista powiadomień wewnątrz sekcji --- */
 .notification-list {
     padding: 10px 20px;
     overflow-y: auto;
     flex: 1;
 }
 
-/* Scrollbar styl */
 .notification-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -78,7 +69,6 @@
     background-color: #aaa;
 }
 
-/* --- Pojedynczy element powiadomienia --- */
 .notification-item {
     display: flex;
     align-items: center;

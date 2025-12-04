@@ -1,10 +1,10 @@
 
 main {
-    flex-grow: 1;  /* Główna zawartość wypełnia pozostałą część ekranu */
+    flex-grow: 1;
     padding: 20px;
     background-color: #e9eff9;
-    overflow-y: auto;  /* Jeśli zawartość w main jest za duża, pojawi się pasek przewijania */
-    height: 100vh;  /* Wysokość głównej zawartości również ustawiamy na pełną wysokość okna */
+    overflow-y: auto;
+    height: 100vh;
 }
 
 h1 {

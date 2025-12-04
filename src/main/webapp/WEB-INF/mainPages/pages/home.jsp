@@ -20,7 +20,6 @@
         <div class="main-container">
             <%@include file="../segments/sidebar.jspf"%>
             <main>
-
                 <c:choose>
                     <c:when test="${requestScope.postsQuantity > 0}">
                         <div class="photos">
@@ -147,21 +146,31 @@
                                                         </div>
                                                     </c:if>
                                                 </div>
-
-
                                             </c:forEach>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
+
                         </div>
 
-                        <div class="see-more-container">
-                            <form class="see-more-form" action="${pageContext.request.contextPath}/home" method="get">
-                                <input type="hidden" name="page" value="${requestScope.page}" />
-                                <button>See next page (${requestScope.page})</button>
-                            </form>
-                        </div>
+                        <c:if test="${requestScope.postsQuantity == 10}">
+                            <div class="see-more-container">
+                                <form class="see-more-form" action="${pageContext.request.contextPath}/home" method="get">
+                                    <input type="hidden" name="page" value="${requestScope.page}" />
+                                    <button>See next page (${requestScope.page})</button>
+                                </form>
+                            </div>
+                        </c:if>
+                        <c:if test="${requestScope.postsQuantity < 10}">
+                            <div class="see-more-container">
+                                <form class="see-more-form" action="${pageContext.request.contextPath}/home" method="get">
+                                    <input type="hidden" name="page" value="${requestScope.page}" />
+                                    <button>See next page (${requestScope.page}) - empty</button>
+                                </form>
+                            </div>
+                        </c:if>
+
                     </c:when>
                     <c:otherwise>
                         <p class="no-more-posts">No more posts from users you follow</p>

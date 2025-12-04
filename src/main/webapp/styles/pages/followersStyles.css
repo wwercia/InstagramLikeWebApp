@@ -55,8 +55,8 @@
 .bottom-profile-info {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;  /* wyśrodkuj liczby */
-    gap: 30px;                /* odstęp między statystykami */
+    justify-content: center;
+    gap: 30px;
     margin-bottom: 15px;
     font-weight: 600;
     font-size: 1rem;
