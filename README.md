@@ -1,3 +1,5 @@
+This project is currently in progress.
+
 # Sharrie
 
 **Sharrie** is a social media web application inspired by popular photo-sharing platforms.   
